@@ -1,6 +1,8 @@
 umw_330
 =======
 
+WIKI Page - https://github.com/griffindj/umw_330/wiki
+
 group project for UMW CPSC 330
 
 Hey guys, this is the readme file for our repository.  You can think of it as a "wiki" that describs our project and the structure of our repository.
