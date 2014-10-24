@@ -12,7 +12,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<exec.mainClass>com.waisbrot.MainClass</exec.mainClass>
+		<exec.mainClass>edu.umw.cpsc.twitterAlt.App</exec.mainClass>
 	</properties>
 
 	<dependencies>
