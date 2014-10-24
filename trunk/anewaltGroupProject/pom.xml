@@ -12,6 +12,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<exec.mainClass>com.waisbrot.MainClass</exec.mainClass>
 	</properties>
 
 	<dependencies>
@@ -45,29 +46,5 @@
 			<url>http://www.sparkjava.com/nexus/content/repositories/spark/</url>
 		</repository>
 	</repositories>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>exec-maven-plugin</artifactId>
-				<version>1.2.1</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>java</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<mainClass>edu.umw.cpsc.twitterAlt.App</mainClass>
-					<arguments>
-						<!-- <argument>foo</argument> -->
-						<!-- <argument>bar</argument> -->
-					</arguments>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
 
 </project>
