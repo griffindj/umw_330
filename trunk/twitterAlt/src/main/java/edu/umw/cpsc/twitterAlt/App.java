@@ -1,5 +1,7 @@
 package edu.umw.cpsc.twitterAlt;
 
+import edu.umw.cpsc.twitterAlt.view.HttpServer;
+
 /**
  * Hello world!
  *
@@ -11,5 +13,8 @@ public class App {
 		System.out
 				.println("If you're seeing this then you have successfully executed Maven");
 		System.out.println("\n\n\n\n\n");
+		
+		//this starts the spark server to begin listening on port 8082;
+		HttpServer.start();
 	}
 }

@@ -1,4 +1,4 @@
-package edu.umw.cpsc.twitterAlt.dataModel;
+package edu.umw.cpsc.twitterAlt.model;
 
 import java.util.Date;
 import java.util.HashSet;
