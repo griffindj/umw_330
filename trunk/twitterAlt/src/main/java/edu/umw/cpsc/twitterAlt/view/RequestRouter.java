@@ -33,5 +33,26 @@ public class RequestRouter {
 				template.process(root, writer);
 			}
 		});
+
+		get(new FreemarkerBasedRoute("/register", "register.ftl") {
+			@Override
+			public void doHandle(Request request, Response response,
+					Writer writer) throws IOException, TemplateException {
+
+				SimpleHash root = new SimpleHash();
+				template.process(root, writer);
+			}
+		});
+
+		get(new FreemarkerBasedRoute("/acceptRegistration", "acceptRegistration.ftl") {
+			@Override
+			public void doHandle(Request request, Response response,
+					Writer writer) throws IOException, TemplateException {
+				System.out.println("Hello app");
+				System.out.println(request.queryParams("Username"));
+				SimpleHash root = new SimpleHash();
+				template.process(root, writer);
+			}
+		});
 	}
 }
