@@ -32,8 +32,7 @@
               	<li><h1 class="col-md-4">TwitterAlt</h1></li>
               </ul>
               <ul class="nav navbar-nav pull-right">
-                <li><a href="/login">Register</a></li>
-                <li><a href="/login">Login</a></li>
+                <li><a href="/login"><span class="glyphicon glyphicon-off"></span>Register/Login</a></li>
               </ul>
             </div>
           </div>

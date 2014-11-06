@@ -76,6 +76,21 @@ public class HttpServer {
 				return signupHtml;
 			}
 		});
+                
+                get("/postMessage", new Route() {
+			@Override
+			public Object handle(Request request, Response response) {
+				StringWriter signupHtml = new StringWriter();
+				Template signupTemplate = null;
+				try {
+					signupTemplate = cfg.getTemplate("postMessage.ftl");
+					signupTemplate.process(new HashMap<>(),signupHtml);
+				} catch (IOException | TemplateException e) {
+					System.out.println("Cannot find the Signup template!");
+				}
+				return signupHtml;
+			}
+		});
 		
 		post("/signup", new Route() {
 			@Override
@@ -88,6 +103,13 @@ public class HttpServer {
 			@Override
 			public Object handle(Request request, Response response) {
 				return "Here is where would check the credentials";
+			}
+		});
+                
+                post("/postMessage", new Route() {
+			@Override
+			public Object handle(Request request, Response response) {
+				return "Your message has been posted";
 			}
 		});
 		
