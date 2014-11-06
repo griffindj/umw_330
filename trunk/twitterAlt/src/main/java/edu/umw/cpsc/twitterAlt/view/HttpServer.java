@@ -42,7 +42,7 @@ public class HttpServer {
 		 * mongoClient.getDB("blog");
 		 */
 
-		setPort(80);
+		setPort(8082);
 		staticFileLocation("resources");
 		System.out.println(new File(HttpServer.class.getProtectionDomain().getCodeSource().getLocation().getPath()));
 		
