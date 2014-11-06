@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.mongodb.BasicDBObject;
+import com.mongodb.DBObject;
 
 public class MongoUtil {
 
@@ -35,5 +36,10 @@ public class MongoUtil {
 		}
 
 		return new BasicDBObject(objectAsMap);
+	}
+	
+	public static Object convertFromDBObject(DBObject dbo){
+		
+		return null;
 	}
 }

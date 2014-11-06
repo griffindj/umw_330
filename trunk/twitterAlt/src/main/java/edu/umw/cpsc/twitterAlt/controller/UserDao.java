@@ -18,5 +18,21 @@ public class UserDao {
 		usersCollection.insert(userDoc);
 		return true;
 	}
+	
+	public boolean login(String username, String password){
+		return true;
+	}
+	
+	public boolean resetPassword(User user, String newPassword){
+		return true;
+	}
+	
+	public boolean subscribeToUser(User subscriber, User subscribee){
+		return true;
+	}
+	
+	public boolean deleteUser(User user){
+		return true;
+	}
 
 }
