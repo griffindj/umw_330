@@ -13,6 +13,11 @@
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/twitterAlt.css" rel="stylesheet">
 	
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+	<script src="js/jquery-1.11.1.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	
   </head>
   <body>
   

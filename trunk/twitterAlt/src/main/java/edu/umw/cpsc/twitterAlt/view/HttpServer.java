@@ -11,6 +11,7 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 import spark.Spark;
+import edu.umw.cpsc.twitterAlt.controller.UserDao;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -20,7 +21,6 @@ public class HttpServer {
 	private HttpServer instance = new HttpServer();
 
 	private static Configuration cfg = new Configuration();
-	public static final String MONGO_SERVER_ADDRESS = "mongodb://localhost";
 
 	// this default constructor is private to prevent other classes from
 	// creating multiple instances. Instead other classes must call
@@ -33,19 +33,11 @@ public class HttpServer {
 	}
 
 	public static void start() {
-		// this line establishes a connection to our Database
-		/*
-		 * MongoClient mongoClient = null; try { mongoClient = new
-		 * MongoClient(new MongoClientURI( MONGO_SERVER_ADDRESS)); } catch
-		 * (UnknownHostException e) { // TODO Auto-generated catch block
-		 * e.printStackTrace(); } final DB blogDatabase =
-		 * mongoClient.getDB("blog");
-		 */
-
 		setPort(8082);
 		staticFileLocation("resources");
-		System.out.println(new File(HttpServer.class.getProtectionDomain().getCodeSource().getLocation().getPath()));
-		
+		System.out.println(new File(HttpServer.class.getProtectionDomain()
+				.getCodeSource().getLocation().getPath()));
+
 		try {
 			cfg.setDirectoryForTemplateLoading(new File(
 					"src/main/java/resources/templates/"));
@@ -55,13 +47,13 @@ public class HttpServer {
 			e1.printStackTrace();
 		}
 		cfg.setTemplateExceptionHandler(TemplateExceptionHandler.HTML_DEBUG_HANDLER);
-		
-		//establish the routes that we will be listening on
+
+		// establish the routes that we will be listening on
 		initializeRoutes();
 	}
-	
-	private static void initializeRoutes(){
-		//signup page
+
+	private static void initializeRoutes() {
+		// signup page
 		get("/login", new Route() {
 			@Override
 			public Object handle(Request request, Response response) {
@@ -69,50 +61,61 @@ public class HttpServer {
 				Template signupTemplate = null;
 				try {
 					signupTemplate = cfg.getTemplate("login.ftl");
-					signupTemplate.process(new HashMap<>(),signupHtml);
+					signupTemplate.process(new HashMap<>(), signupHtml);
 				} catch (IOException | TemplateException e) {
 					System.out.println("Cannot find the Signup template!");
 				}
 				return signupHtml;
 			}
 		});
-                
-                get("/postMessage", new Route() {
+
+		get("/postMessage", new Route() {
 			@Override
 			public Object handle(Request request, Response response) {
 				StringWriter signupHtml = new StringWriter();
 				Template signupTemplate = null;
 				try {
 					signupTemplate = cfg.getTemplate("postMessage.ftl");
-					signupTemplate.process(new HashMap<>(),signupHtml);
+					signupTemplate.process(new HashMap<>(), signupHtml);
 				} catch (IOException | TemplateException e) {
 					System.out.println("Cannot find the Signup template!");
 				}
 				return signupHtml;
 			}
 		});
-		
-		post("/signup", new Route() {
+
+		post("/register", new Route() {
 			@Override
 			public Object handle(Request request, Response response) {
+				String username = request.queryParams("username");
+				String password = request.queryParams("password");
+				UserDao userDao = new UserDao();
+				if (userDao.login(username, password)) {
+					// login returned true so create a session and send them to
+					// profile
+				} else {
+					// login returned false, so send back to /login with info
+					// message
+					response.redirect("/login");
+				}
 				return "Here is where we call the code to save to Database";
 			}
 		});
-				
+
 		post("/login", new Route() {
 			@Override
 			public Object handle(Request request, Response response) {
 				return "Here is where would check the credentials";
 			}
 		});
-                
-                post("/postMessage", new Route() {
+
+		post("/postMessage", new Route() {
 			@Override
 			public Object handle(Request request, Response response) {
 				return "Your message has been posted";
 			}
 		});
-		
+
 	}
 
 }
