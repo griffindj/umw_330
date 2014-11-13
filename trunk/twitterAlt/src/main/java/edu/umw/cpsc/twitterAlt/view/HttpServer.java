@@ -131,6 +131,16 @@ public class HttpServer {
 		post("/login", new Route() {
 			@Override
 			public Object handle(Request request, Response response) {
+				UserDao userDao = new UserDao();
+				String username = request.queryParams("email");
+				String password = request.queryParams("password");
+				if (userDao.login(username, password)){
+					response.redirect("/postMessage");
+				
+				}else{
+					response.redirect("/login");
+					
+				}
 				return "Here is where would check the credentials";
 			}
 		});

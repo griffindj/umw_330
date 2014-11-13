@@ -1,5 +1,6 @@
 package edu.umw.cpsc.twitterAlt.controller;
 
+import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
@@ -27,7 +28,13 @@ public class UserDao {
 	}
 
 	public boolean login(String username, String password) {
-		return true;
+		BasicDBObject loginQuery = new BasicDBObject("username", username).append("password", password);
+		if (usersCollection.count(loginQuery) > 0){
+			return true;
+		}else{
+			return false;
+			
+		}
 	}
 
 	public User getUser(String username) {
