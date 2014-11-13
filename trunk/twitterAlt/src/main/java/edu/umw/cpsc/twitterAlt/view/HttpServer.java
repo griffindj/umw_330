@@ -53,6 +53,13 @@ public class HttpServer {
 	}
 
 	private static void initializeRoutes() {
+		get("/", new Route() {
+			@Override
+			public Object handle(Request request, Response response) {
+				response.redirect("/postMessage");
+				return "unable to redirect - something's wrong if you see this";
+			}
+		});
 		// signup page
 		get("/login", new Route() {
 			@Override
@@ -83,8 +90,8 @@ public class HttpServer {
 				return signupHtml;
 			}
 		});
-                
-                get("/searchTag", new Route() {
+
+		get("/searchTag", new Route() {
 			@Override
 			public Object handle(Request request, Response response) {
 				StringWriter signupHtml = new StringWriter();
@@ -130,8 +137,8 @@ public class HttpServer {
 				return "Your message has been posted";
 			}
 		});
-                
-                post("/search", new Route() {
+
+		post("/search", new Route() {
 			@Override
 			public Object handle(Request request, Response response) {
 				return "This is where we would post all tagged messages";
