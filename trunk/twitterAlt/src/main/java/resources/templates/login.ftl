@@ -10,11 +10,11 @@
 			<form id="login-form" role="form" action="/login" method="post">
 			  <div class="form-group">
 			    <label for="email">Email</label>
-			    <input type="email" class="form-control" id="email" placeholder="Enter email">
+			    <input type="email" class="form-control" name="email" id="email" placeholder="Enter email">
 			  </div>
 			  <div class="form-group">
 			    <label for="password">Password</label>
-			    <input type="password" class="form-control" id="password" placeholder="Password">
+			    <input type="password" class="form-control" name="password" id="password" placeholder="Password">
 			  </div>
 			  <button id="loginBtn" type="submit" class="btn btn-primary">Login</button>
 			  <button id="registerBtn" type="button" class="btn btn-danger">Register</button>

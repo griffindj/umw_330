@@ -18,8 +18,6 @@ public class MessageDao {
 	}
 
 	public boolean postMessage(Message msg) {
-		BasicDBObject userDoc = MongoUtil.convertToDBObject(msg);
-		messagesCollection.insert(userDoc);
 		return true;
 	}
 	

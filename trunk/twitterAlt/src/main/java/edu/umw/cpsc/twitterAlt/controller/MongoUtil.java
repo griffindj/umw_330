@@ -10,11 +10,13 @@ import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.google.gson.Gson;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
+import com.mongodb.util.JSON;
 
 public class MongoUtil {
 	private static MongoUtil instance;
@@ -45,24 +47,33 @@ public class MongoUtil {
 		return this.db;
 	}
 
-	public static BasicDBObject convertToDBObject(Object o) {
-		Map<String, Object> objectAsMap = new HashMap<String, Object>();
+	public static DBObject toDBObject(Object o) {
+		DBObject dbObject = null;
 		try {
-			BeanInfo info = Introspector.getBeanInfo(o.getClass());
-			for (PropertyDescriptor pd : info.getPropertyDescriptors()) {
-				Method reader = pd.getReadMethod();
-				if (reader != null)
-					objectAsMap.put(pd.getName(), reader.invoke(o));
-			}
+			// first convert object to JSON (which is how Mongo will store it
+			Gson gson = new Gson();
+			String oAsJson = gson.toJson(o);
+			// convert JSON formatted string to a Mongo DBObject
+			dbObject = (DBObject) JSON.parse(oAsJson);
 		} catch (Exception e) {
 			System.out
-					.println("Something went wrong during converting Java Object to Mongo DB Object");
+					.println("error trying to convert object to Json then to Mongo DB Object");
 			e.printStackTrace();
 		}
-		return new BasicDBObject(objectAsMap);
+		return dbObject;
 	}
 
-	public static Object convertFromDBObject(DBObject dbo) {
-		return null;
+	public static Object fromDBObject(DBObject dbo, Object o) {
+		try {
+			// first convert mongodb object to JSON string
+			Gson gson = new Gson();
+			String dbObjectAsJson = JSON.serialize(dbo);
+			// then we populate our object from JSON string based on class type
+			o = gson.fromJson(dbObjectAsJson, o.getClass());
+		} catch (Exception e) {
+			System.out.println("error converting mongo DB Object to " + o);
+			e.printStackTrace();
+		}
+		return o;
 	}
 }

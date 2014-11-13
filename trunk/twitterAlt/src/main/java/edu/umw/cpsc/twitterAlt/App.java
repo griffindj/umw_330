@@ -16,7 +16,7 @@ public class App {
 		System.out.println("\n\n\n\n\n");
 
 		// this starts the spark server to begin listening on port 8082;
-		HttpServer.start();
+		HttpServer.getInstance().start();
 
 	}
 }

@@ -12,27 +12,21 @@ import spark.Response;
 import spark.Route;
 import spark.Spark;
 import edu.umw.cpsc.twitterAlt.controller.UserDao;
+import edu.umw.cpsc.twitterAlt.model.User;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateExceptionHandler;
 
 public class HttpServer {
-	private HttpServer instance = new HttpServer();
-
+	private static HttpServer instance;
 	private static Configuration cfg = new Configuration();
 
 	// this default constructor is private to prevent other classes from
 	// creating multiple instances. Instead other classes must call
 	// getInstance()
 	private HttpServer() {
-	}
 
-	public HttpServer getInstance() {
-		return instance;
-	}
-
-	public static void start() {
 		setPort(8082);
 		staticFileLocation("resources");
 		System.out.println(new File(HttpServer.class.getProtectionDomain()
@@ -47,12 +41,14 @@ public class HttpServer {
 			e1.printStackTrace();
 		}
 		cfg.setTemplateExceptionHandler(TemplateExceptionHandler.HTML_DEBUG_HANDLER);
-
-		// establish the routes that we will be listening on
-		initializeRoutes();
 	}
 
-	private static void initializeRoutes() {
+	public static HttpServer getInstance() {
+		return instance == null ? new HttpServer() : instance;
+	}
+
+	public static void start() {
+
 		// signup page
 		get("/login", new Route() {
 			@Override
@@ -87,18 +83,25 @@ public class HttpServer {
 		post("/register", new Route() {
 			@Override
 			public Object handle(Request request, Response response) {
-				String username = request.queryParams("username");
+				String username = request.queryParams("email");
 				String password = request.queryParams("password");
+				System.out.println(username + password);
+				User newUser = new User(username, password);
 				UserDao userDao = new UserDao();
-				if (userDao.login(username, password)) {
-					// login returned true so create a session and send them to
-					// profile
+				if (userDao.registerUser(newUser)) {
+					// we were able to register the user so create session
+					request.session(true);
+					// put the new user into the session
+					request.session().attribute("currentUser",
+							userDao.getUser(username));
+					// send to homePage or postMessage page
+					response.redirect("/postMessage");
+					return "user has been saved to mongo";
 				} else {
-					// login returned false, so send back to /login with info
-					// message
+					// register returned false, send back to login with message
 					response.redirect("/login");
+					return null;
 				}
-				return "Here is where we call the code to save to Database";
 			}
 		});
 

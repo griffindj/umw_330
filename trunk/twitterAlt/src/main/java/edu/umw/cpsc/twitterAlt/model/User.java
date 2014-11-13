@@ -8,6 +8,11 @@ public class User {
 	String password;
 	Set<String> subscriptions = new HashSet<String>();
 
+	public User(String username, String password) {
+		this.username = username;
+		this.password = password;
+	}
+	
 	public String getUsername() {
 		return username;
 	}
