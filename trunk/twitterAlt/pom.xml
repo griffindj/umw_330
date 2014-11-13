@@ -53,6 +53,16 @@
 	</repositories>
 
 	<build>
+		<resources>
+			<resource>
+				<targetPath>resources/</targetPath>
+				<filtering>false</filtering>
+				<directory>${basedir}/src/main/java/resources</directory>
+				<includes>
+					<include>**/**</include>
+				</includes>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

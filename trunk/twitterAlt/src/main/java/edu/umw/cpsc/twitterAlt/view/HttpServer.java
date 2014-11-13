@@ -49,6 +49,14 @@ public class HttpServer {
 
 	public static void start() {
 
+		get("/", new Route() {
+			@Override
+			public Object handle(Request request, Response response) {
+				response.redirect("/postMessage");
+				return "unable to redirect - something's wrong if you see this";
+			}
+		});
+		
 		// signup page
 		get("/login", new Route() {
 			@Override
@@ -72,6 +80,21 @@ public class HttpServer {
 				Template signupTemplate = null;
 				try {
 					signupTemplate = cfg.getTemplate("postMessage.ftl");
+					signupTemplate.process(new HashMap<>(), signupHtml);
+				} catch (IOException | TemplateException e) {
+					System.out.println("Cannot find the Signup template!");
+				}
+				return signupHtml;
+			}
+		});
+
+		get("/searchTag", new Route() {
+			@Override
+			public Object handle(Request request, Response response) {
+				StringWriter signupHtml = new StringWriter();
+				Template signupTemplate = null;
+				try {
+					signupTemplate = cfg.getTemplate("search.ftl");
 					signupTemplate.process(new HashMap<>(), signupHtml);
 				} catch (IOException | TemplateException e) {
 					System.out.println("Cannot find the Signup template!");
@@ -116,6 +139,13 @@ public class HttpServer {
 			@Override
 			public Object handle(Request request, Response response) {
 				return "Your message has been posted";
+			}
+		});
+
+		post("/search", new Route() {
+			@Override
+			public Object handle(Request request, Response response) {
+				return "This is where we would post all tagged messages";
 			}
 		});
 
