@@ -13,6 +13,7 @@ import spark.Route;
 import spark.Spark;
 import edu.umw.cpsc.twitterAlt.controller.UserDao;
 import edu.umw.cpsc.twitterAlt.model.User;
+import edu.umw.cpsc.twitterAlt.view.routes.*;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -26,12 +27,10 @@ public class HttpServer {
 	// creating multiple instances. Instead other classes must call
 	// getInstance()
 	private HttpServer() {
-
 		setPort(8082);
 		staticFileLocation("resources");
 		System.out.println(new File(HttpServer.class.getProtectionDomain()
 				.getCodeSource().getLocation().getPath()));
-
 		try {
 			cfg.setDirectoryForTemplateLoading(new File(
 					"src/main/java/resources/templates/"));
@@ -47,137 +46,24 @@ public class HttpServer {
 		return instance == null ? new HttpServer() : instance;
 	}
 
+	public static Configuration getCfg() {
+		return cfg;
+	}
+
 	public static void start() {
 
-		get("/", new Route() {
-			public Object handle(Request request, Response response) {
-				StringWriter html = new StringWriter();
-				Template template = null;
-				try {
-					template = cfg.getTemplate("welcome.ftl");
-					template.process(new HashMap<>(), html);
-				} catch (IOException | TemplateException e) {
-					System.out.println("Cannot find the Signup template!");
-				}
-				return html;
-			}
-		});
-		
-		// signup page
-		get("/login", new Route() {
-			@Override
-			public Object handle(Request request, Response response) {
-				StringWriter signupHtml = new StringWriter();
-				Template signupTemplate = null;
-				try {
-					signupTemplate = cfg.getTemplate("login.ftl");
-					signupTemplate.process(new HashMap<>(), signupHtml);
-				} catch (IOException | TemplateException e) {
-					System.out.println("Cannot find the Signup template!");
-				}
-				return signupHtml;
-			}
-		});
+		// initialize the GET routes, aka routes that display html templates
+		get("/", new WelcomeGetRoute());
+		get("/login", new LoginGetRoute());
+		get("/profile", new ProfileGetRoute());
+		get("/postMessage", new MessageGetRoute());
+		get("/searchTag", new SearchTagGetRoute());
 
-		get("/profile", new Route() {
-			public Object handle(Request request, Response response) {
-				StringWriter html = new StringWriter();
-				Template template = null;
-				try {
-					template = cfg.getTemplate("profile.ftl");
-					template.process(new HashMap<>(), html);
-				} catch (IOException | TemplateException e) {
-					System.out.println("Cannot find the Signup template!");
-				}
-				return html;
-			}
-		});
-
-		get("/postMessage", new Route() {
-			@Override
-			public Object handle(Request request, Response response) {
-				StringWriter signupHtml = new StringWriter();
-				Template signupTemplate = null;
-				try {
-					signupTemplate = cfg.getTemplate("postMessage.ftl");
-					signupTemplate.process(new HashMap<>(), signupHtml);
-				} catch (IOException | TemplateException e) {
-					System.out.println("Cannot find the Signup template!");
-				}
-				return signupHtml;
-			}
-		});
-
-		get("/searchTag", new Route() {
-			@Override
-			public Object handle(Request request, Response response) {
-				StringWriter signupHtml = new StringWriter();
-				Template signupTemplate = null;
-				try {
-					signupTemplate = cfg.getTemplate("search.ftl");
-					signupTemplate.process(new HashMap<>(), signupHtml);
-				} catch (IOException | TemplateException e) {
-					System.out.println("Cannot find the Signup template!");
-				}
-				return signupHtml;
-			}
-		});
-
-		post("/register", new Route() {
-			@Override
-			public Object handle(Request request, Response response) {
-				String username = request.queryParams("email");
-				String password = request.queryParams("password");
-				System.out.println(username + password);
-				User newUser = new User(username, password);
-				UserDao userDao = new UserDao();
-				if (userDao.registerUser(newUser)) {
-					// we were able to register the user so create session
-					request.session(true);
-					// put the new user into the session
-					request.session().attribute("currentUser",
-							userDao.getUser(username));
-					// send to homePage or postMessage page
-					response.redirect("/profile");
-					return "user has been saved to mongo";
-				} else {
-					// register returned false, send back to login with message
-					response.redirect("/login");
-					return null;
-				}
-			}
-		});
-
-		post("/login", new Route() {
-			@Override
-			public Object handle(Request request, Response response) {
-				UserDao userDao = new UserDao();
-				String username = request.queryParams("email");
-				String password = request.queryParams("password");
-				if (userDao.login(username, password)){
-					response.redirect("/profile");
-				
-				}else{
-					response.redirect("/login");
-					
-				}
-				return "Here is where would check the credentials";
-			}
-		});
-
-		post("/postMessage", new Route() {
-			@Override
-			public Object handle(Request request, Response response) {
-				return "Your message has been posted";
-			}
-		});
-
-		post("/search", new Route() {
-			@Override
-			public Object handle(Request request, Response response) {
-				return "This is where we would post all tagged messages";
-			}
-		});
+		// initialize the POST routes, aka routes that receive form submissions
+		post("/register", new RegisterPostRoute());
+		post("/login", new LoginPostRoute());
+		post("/postMessage", new MessagePostRoute());
+		post("/search", new SearchPostRoute());
 
 	}
 
