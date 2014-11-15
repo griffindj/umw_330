@@ -18,8 +18,8 @@ public class UserDao {
 		if (usersCollection.count(userDoc) > 0) {
 			System.out.print("User already exists");
 			return false;
-			//TODO add more checks for password validation and null checks
-		}else {
+			// TODO add more checks for password validation and null checks
+		} else {
 			usersCollection.insert(userDoc);
 			System.out.println("User " + user.getUsername()
 					+ " saved to MongoDB");
@@ -28,17 +28,22 @@ public class UserDao {
 	}
 
 	public boolean login(String username, String password) {
-		BasicDBObject loginQuery = new BasicDBObject("username", username).append("password", password);
-		if (usersCollection.count(loginQuery) > 0){
+		BasicDBObject loginQuery = new BasicDBObject("username", username)
+				.append("password", password);
+		if (usersCollection.count(loginQuery) > 0) {
 			return true;
-		}else{
+		} else {
 			return false;
-			
+
 		}
 	}
 
 	public User getUser(String username) {
-		return null;
+		// create a mongo query based on username
+		BasicDBObject getUserQuery = new BasicDBObject("username", username);
+		// populate a new User object from that query
+		return (User) MongoUtil.fromDBObject(
+				usersCollection.findOne(getUserQuery), new User());
 	}
 
 	public boolean resetPassword(User user, String newPassword) {

@@ -5,10 +5,13 @@ import java.util.List;
 import java.util.Set;
 
 public class User {
-	String username;
-	String password;
-	List<Message> postedMessages;
-	Set<String> subscriptions = new HashSet<String>();
+	private String username;
+	private String password;
+	private List<Message> messages;
+	private Set<String> subscriptions = new HashSet<String>();
+
+	public User() {
+	}
 
 	public User(String username, String password) {
 		this.username = username;
@@ -39,12 +42,12 @@ public class User {
 		this.subscriptions = subscriptions;
 	}
 
-	public List<Message> getPostedMessages() {
-		return postedMessages;
+	public List<Message> getMessages() {
+		return messages;
 	}
 
-	public void setPostedMessages(List<Message> postedMessages) {
-		this.postedMessages = postedMessages;
+	public void setMessages(List<Message> messages) {
+		this.messages = messages;
 	}
 
 }

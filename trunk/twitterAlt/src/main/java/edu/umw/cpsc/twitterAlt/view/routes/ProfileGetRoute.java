@@ -16,11 +16,14 @@ public class ProfileGetRoute implements Route {
 	public Object handle(Request request, Response response) {
 		StringWriter html = new StringWriter();
 		Template template = null;
+		HashMap<String, Object> attributes = new HashMap<>();
+		//put the session User into the Hashmap so the template can use
+		attributes.put("user", request.session().attribute("user"));
 		try {
 			template = HttpServer.getCfg().getTemplate("profile.ftl");
-			template.process(new HashMap<>(), html);
+			template.process(attributes, html);
 		} catch (IOException | TemplateException e) {
-			System.out.println("Cannot find the Signup template!");
+			System.out.println("Cannot process the profile template!");
 		}
 		return html;
 	}

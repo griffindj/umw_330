@@ -5,11 +5,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Message {
-	String text; // this is trimmed at 140 characters
-	String author;
-	Date date = new Date();
-	Set<String> hashtags = new HashSet<String>();
-	Set<String> mentions = new HashSet<String>();
+	private String text; // this is trimmed at 140 characters
+	private Date date = new Date();
+	private Set<String> hashtags = new HashSet<String>();
+	private Set<String> mentions = new HashSet<String>();
 
 	/**
 	 * @return the text
@@ -25,21 +24,7 @@ public class Message {
 	public void setText(String text) {
 		// this line will get the first 140 characters of the string
 		this.text = text != null ? text.substring(0, 139) : null;
-	}
-
-	/**
-	 * @return the author
-	 */
-	public String getAuthor() {
-		return author;
-	}
-
-	/**
-	 * @param author
-	 *            the author to set
-	 */
-	public void setAuthor(String author) {
-		this.author = author;
+		//here is also where we set the hashtags and mentions
 	}
 
 	/**
@@ -50,14 +35,6 @@ public class Message {
 	}
 
 	/**
-	 * @param date
-	 *            the date to set
-	 */
-	public void setDate(Date date) {
-		this.date = date;
-	}
-
-	/**
 	 * @return the hashtags
 	 */
 	public Set<String> getHashtags() {
@@ -65,26 +42,10 @@ public class Message {
 	}
 
 	/**
-	 * @param hashtags
-	 *            the hashtags to set
-	 */
-	public void setHashtags(Set<String> hashtags) {
-		this.hashtags = hashtags;
-	}
-
-	/**
 	 * @return the mentions
 	 */
 	public Set<String> getMentions() {
 		return mentions;
-	}
-
-	/**
-	 * @param mentions
-	 *            the mentions to set
-	 */
-	public void setMentions(Set<String> mentions) {
-		this.mentions = mentions;
 	}
 
 }

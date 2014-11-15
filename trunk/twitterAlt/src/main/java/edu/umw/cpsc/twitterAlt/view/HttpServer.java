@@ -56,13 +56,12 @@ public class HttpServer {
 		get("/", new WelcomeGetRoute());
 		get("/login", new LoginGetRoute());
 		get("/profile", new ProfileGetRoute());
-		get("/postMessage", new MessageGetRoute());
 		get("/searchTag", new SearchTagGetRoute());
 
 		// initialize the POST routes, aka routes that receive form submissions
 		post("/register", new RegisterPostRoute());
 		post("/login", new LoginPostRoute());
-		post("/postMessage", new MessagePostRoute());
+		post("/postMessage", new WriteMessagePostRoute());
 		post("/search", new SearchPostRoute());
 
 	}
