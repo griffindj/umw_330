@@ -25,14 +25,6 @@ public class Message {
 	public void setText(String text) {
 		// this line will get the first 140 characters of the string
 		this.text = text != null ? text.substring(0, 139) : null;
-		// FYI: this statement is shorthand for
-		// if(text != null){
-		// this.text = text.substring(0,139);
-		// }else{
-		// this.text = null;
-		// }
-		// see https://en.wikipedia.org/wiki/%3F%3a or
-		// https://stackoverflow.com/questions/10336899/what-is-a-question-mark-and-colon-operator-within-the-parentheses-of-a-p
 	}
 
 	/**

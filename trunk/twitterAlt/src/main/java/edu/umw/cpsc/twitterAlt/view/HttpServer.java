@@ -50,10 +50,16 @@ public class HttpServer {
 	public static void start() {
 
 		get("/", new Route() {
-			@Override
 			public Object handle(Request request, Response response) {
-				response.redirect("/postMessage");
-				return "unable to redirect - something's wrong if you see this";
+				StringWriter html = new StringWriter();
+				Template template = null;
+				try {
+					template = cfg.getTemplate("welcome.ftl");
+					template.process(new HashMap<>(), html);
+				} catch (IOException | TemplateException e) {
+					System.out.println("Cannot find the Signup template!");
+				}
+				return html;
 			}
 		});
 		
@@ -70,6 +76,20 @@ public class HttpServer {
 					System.out.println("Cannot find the Signup template!");
 				}
 				return signupHtml;
+			}
+		});
+
+		get("/profile", new Route() {
+			public Object handle(Request request, Response response) {
+				StringWriter html = new StringWriter();
+				Template template = null;
+				try {
+					template = cfg.getTemplate("profile.ftl");
+					template.process(new HashMap<>(), html);
+				} catch (IOException | TemplateException e) {
+					System.out.println("Cannot find the Signup template!");
+				}
+				return html;
 			}
 		});
 
@@ -118,7 +138,7 @@ public class HttpServer {
 					request.session().attribute("currentUser",
 							userDao.getUser(username));
 					// send to homePage or postMessage page
-					response.redirect("/postMessage");
+					response.redirect("/profile");
 					return "user has been saved to mongo";
 				} else {
 					// register returned false, send back to login with message
@@ -135,7 +155,7 @@ public class HttpServer {
 				String username = request.queryParams("email");
 				String password = request.queryParams("password");
 				if (userDao.login(username, password)){
-					response.redirect("/postMessage");
+					response.redirect("/profile");
 				
 				}else{
 					response.redirect("/login");

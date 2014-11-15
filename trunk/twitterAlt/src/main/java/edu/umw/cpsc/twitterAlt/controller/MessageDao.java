@@ -3,7 +3,6 @@ package edu.umw.cpsc.twitterAlt.controller;
 import java.util.List;
 import java.util.Set;
 
-import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 
