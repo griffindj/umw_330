@@ -11,20 +11,25 @@ public class WriteMessagePostRoute implements Route {
 
 	@Override
 	public Object handle(Request request, Response response) {
-		MessageDao messageDao = new MessageDao();
-		UserDao userDao = new UserDao();
 		String text = request.queryParams("text");
+		// by default all messages are "private/not public"
+		boolean isPublic = false;
+		// however if isPublic checkbox is set to true, then set public
+		if (request.queryParams("isPublic") != null) {
+			isPublic = request.queryParams("isPublic").equals("true") ? true
+					: false;
+		}
 		String username = ((User) request.session().attribute("user"))
 				.getUsername();
-		System.out.println(text + username);
+		UserDao userDao = new UserDao();
 
-		if (messageDao.postMessage(username, text)) {
-			System.out.println(text + username);
+		MessageDao messageDao = new MessageDao();
+		if (messageDao.postMessage(username, text, isPublic)) {
 			// message was posted, so update the session and refresh
 			request.session().attribute("user", userDao.getUser(username));
 			response.redirect("/profile");
 			// should never reach here
-			return "asdfasdf";
+			return "should never reach here";
 		} else {
 			return "message failed to post";
 		}

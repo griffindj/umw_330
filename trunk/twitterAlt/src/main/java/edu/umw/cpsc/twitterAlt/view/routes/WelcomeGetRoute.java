@@ -1,15 +1,10 @@
 package edu.umw.cpsc.twitterAlt.view.routes;
 
-import java.io.IOException;
 import java.io.StringWriter;
-import java.util.HashMap;
 
 import spark.Request;
 import spark.Response;
 import spark.Route;
-import edu.umw.cpsc.twitterAlt.view.HttpServer;
-import freemarker.template.Template;
-import freemarker.template.TemplateException;
 
 public class WelcomeGetRoute implements Route{
 

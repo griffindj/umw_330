@@ -4,7 +4,6 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 import edu.umw.cpsc.twitterAlt.controller.UserDao;
-import edu.umw.cpsc.twitterAlt.model.User;
 
 public class LoginPostRoute implements Route{
 

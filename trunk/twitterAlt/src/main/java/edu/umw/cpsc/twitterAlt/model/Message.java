@@ -6,13 +6,14 @@ import java.util.Set;
 
 public class Message {
 	private String text; // this is trimmed at 140 characters
+	private boolean isPublic;
 	private Date date = new Date();
 	private Set<String> hashtags = new HashSet<String>();
 	private Set<String> mentions = new HashSet<String>();
 
-	public Message(String text) {
-		System.out.println(text);
+	public Message(String text, boolean isPublic) {
 		setText(text);
+		setPublic(isPublic);
 	}
 
 	public String getText() {
@@ -21,8 +22,22 @@ public class Message {
 
 	public void setText(String text) {
 		// this line will get the first 140 characters of the string
-		this.text = text != null ? text.substring(0, Math.min(text.length(), 139)) : null;
+		this.text = text != null ? text.substring(0,
+				Math.min(text.length(), 139)) : null;
 		// here is also where we set the hashtags and mentions
+		//start by splitting the text into words by whitespace
+		String[] words = text.split("\\s+");
+		//for each word
+		for (String word : words) {
+			// if starts with @, then add the name to our Set of mentions
+			if (word.startsWith("@")) {
+				this.mentions.add(word.substring(1, word.length()));
+			}
+			// if starts with #, then add the name to our Set of hashtags
+			if (word.startsWith("#")) {
+				this.hashtags.add(word.substring(1, word.length()));
+			}
+		}
 	}
 
 	public Date getDate() {
@@ -35,6 +50,14 @@ public class Message {
 
 	public Set<String> getMentions() {
 		return mentions;
+	}
+
+	public boolean isPublic() {
+		return isPublic;
+	}
+
+	public void setPublic(boolean isPublic) {
+		this.isPublic = isPublic;
 	}
 
 }
