@@ -4,13 +4,19 @@
 
 	<div class="page-header">
 	  <h1>Welcome to TwitterAlt <small>an alternative to twitter</small></h1>
+	  <div class="pull-right">
+	  	<form role="form" action="search" method="post">
+	  		<input type="text" name="query" placeholder="Search Messages..."></input>
+			<button type="submit" class="btn btn-primary">Search</button>
+	  	</form>
+	  </div>
 	</div>
 
 	<div class="container">
 		<div class="col-md-3">
 			<div class="panel panel-danger">
 			  <div class="panel-heading">
-			    <h3 class="panel-title">Your Profile</h3>
+			    <h3 class="panel-title">Your TwitterAlt Profile</h3>
 			  </div>
 			  <div class="panel-body">
 			  	<p>${user.username}</p>
@@ -39,10 +45,10 @@
 			  	</div>
 			  	<div class="panel-heading">
 			    	<h3 class="panel-title">
-			    		Messages
+			    		Your Messages
+		    			<span class="label label-primary">@mention</span>
+		    			<span class="label label-danger">#hashtag</span>
 			    		<div class=" pull-right">
-			    			<span class="label label-primary">@mention</span>
-			    			<span class="label label-danger">#hashtag</span>
 					    	<span class="label label-default">
 					    		you have written <span class="badge">${user.messages?size}</span> messages
 					    	</span>

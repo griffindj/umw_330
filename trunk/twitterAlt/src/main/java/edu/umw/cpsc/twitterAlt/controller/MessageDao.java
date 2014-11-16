@@ -1,11 +1,13 @@
 package edu.umw.cpsc.twitterAlt.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
 import edu.umw.cpsc.twitterAlt.model.Message;
@@ -48,7 +50,18 @@ public class MessageDao {
 	}
 
 	public List<Message> searchMessages(String textQuery, boolean isHashtag) {
-		return null;
+		List<Message> messages = new ArrayList<Message>();
+		DBObject query = new BasicDBObject("messages.text", textQuery);
+		DBCursor matchingMessages = usersCollection.find(query);
+		while(matchingMessages.hasNext()){
+			User user = (User) MongoUtil.fromDBObject(matchingMessages.next(), new User());
+			for(Message message : user.getMessages()){
+				if(message.getText().contains(textQuery)){
+					messages.add(message);
+				}
+			}
+		}
+		return messages;
 	}
 
 	public Set<String> getTrendingHashtags() {

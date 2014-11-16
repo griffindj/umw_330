@@ -12,7 +12,6 @@ public class RegisterPostRoute implements Route {
 	public Object handle(Request request, Response response) {
 		String username = request.queryParams("email");
 		String password = request.queryParams("password");
-		System.out.println(username + password);
 		User newUser = new User(username, password);
 		UserDao userDao = new UserDao();
 		if (userDao.registerUser(newUser)) {
