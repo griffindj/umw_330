@@ -17,8 +17,9 @@ public class ProfileGetRoute implements Route {
 		StringWriter html = new StringWriter();
 		Template template = null;
 		HashMap<String, Object> attributes = new HashMap<>();
-		//put the session User into the Hashmap so the template can use
+		// put the session User into the Hashmap so the template can use
 		attributes.put("user", request.session().attribute("user"));
+		attributes.put("messageFeed", request.session().attribute("messageFeed"));
 		try {
 			template = HttpServer.getCfg().getTemplate("profile.ftl");
 			template.process(attributes, html);

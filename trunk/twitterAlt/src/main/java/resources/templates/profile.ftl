@@ -13,7 +13,7 @@
 	</div>
 
 	<div class="container">
-		<div class="col-md-3">
+		<div class="col-md-5">
 			<div class="panel panel-danger">
 			  <div class="panel-heading">
 			    <h3 class="panel-title">Your TwitterAlt Profile</h3>
@@ -23,8 +23,6 @@
 			  	<a href="/resetPassword">reset your password</a>
 			  </div>
 			</div>
-		</div>
-		<div class="col-md-9">
 			<div class="panel panel-default">
 			  	<div class="panel-body">
 					<form role="form" action="/postMessage" method="post">
@@ -45,7 +43,6 @@
 			  	</div>
 			  	<div class="panel-heading">
 			    	<h3 class="panel-title">
-			    		Your Messages
 		    			<span class="label label-primary">@mention</span>
 		    			<span class="label label-danger">#hashtag</span>
 			    		<div class=" pull-right">
@@ -75,6 +72,33 @@
 						</#list>
 					</ul>
 			  	</div>
+			</div>
+		</div>
+		<div class="col-md-7">
+			<div class="panel panel-info">
+			  <div class="panel-heading">
+			    <h3 class="panel-title">Your TwitterAlt feed</h3>
+			  </div>
+				<div class="panel-body">
+					<ul class="list-group">
+				  		<#list messageFeed as message>
+						    <li class="list-group-item">
+						    	<div>
+						    		${message.text}
+						    		<div class="label label-default pull-right">${message.date?datetime}</div>
+						    	</div>
+						    	<div>
+						    		<#list message.mentions as mention> 
+						    			<span class="label label-primary">${mention}</span>
+						    		</#list>
+						    		<#list message.hashtags as hashtag> 
+						    			<span class="label label-danger">${hashtag}</span>
+						    		</#list>
+						    	</div> 
+						    </li>
+						</#list>
+					</ul>
+				</div>
 			</div>
 		</div>
 	</div>

@@ -42,21 +42,41 @@ public class MessageDao {
 	}
 
 	public List<Message> getMessages(User user) {
-		return null;
+		List<Message> messages = new ArrayList<Message>();
+		// build query that searchs for users who this user is subscribed
+		user.getSubscriptions().add(user.getUsername());
+		BasicDBObject query = new BasicDBObject("username", new BasicDBObject(
+				"$in", user.getSubscriptions()));
+		// append("$or", new BasicDBObject("username", user.getUsername()));
+		System.out.println(query);
+		DBCursor subscriptions = usersCollection.find(query);
+		while (subscriptions.hasNext()) {
+			User followedUser = (User) MongoUtil.fromDBObject(
+					subscriptions.next(), new User());
+			System.out.println(followedUser.getUsername());
+			for (Message message : followedUser.getMessages()) {
+				System.out.println(followedUser.getUsername());
+				if (user.equals(followedUser) || message.isPublic()) {
+					messages.add(message);
+				}
+			}
+		}
+		return messages;
 	}
 
 	public List<Message> getAllMessages() {
 		return null;
 	}
 
-	public List<Message> searchMessages(String textQuery, boolean isHashtag) {
+	public List<Message> searchMessages(String textQuery) {
 		List<Message> messages = new ArrayList<Message>();
 		DBObject query = new BasicDBObject("messages.text", textQuery);
 		DBCursor matchingMessages = usersCollection.find(query);
-		while(matchingMessages.hasNext()){
-			User user = (User) MongoUtil.fromDBObject(matchingMessages.next(), new User());
-			for(Message message : user.getMessages()){
-				if(message.getText().contains(textQuery)){
+		while (matchingMessages.hasNext()) {
+			User user = (User) MongoUtil.fromDBObject(matchingMessages.next(),
+					new User());
+			for (Message message : user.getMessages()) {
+				if (message.getText().contains(textQuery) && message.isPublic()) {
 					messages.add(message);
 				}
 			}
