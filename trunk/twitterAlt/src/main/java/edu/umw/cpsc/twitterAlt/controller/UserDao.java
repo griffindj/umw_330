@@ -9,7 +9,7 @@ import edu.umw.cpsc.twitterAlt.model.User;
 
 public class UserDao {
 	private final DB db = MongoUtil.getInstance().getDb();
-	private final DBCollection usersCollection = db.getCollection("users");;
+	private final DBCollection usersCollection = db.getCollection("users");
 
 	public boolean registerUser(User user) {
 		// convert User object to a DBObject to query/insert into Mongo

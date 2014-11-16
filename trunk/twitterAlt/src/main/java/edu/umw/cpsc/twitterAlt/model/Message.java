@@ -10,40 +10,29 @@ public class Message {
 	private Set<String> hashtags = new HashSet<String>();
 	private Set<String> mentions = new HashSet<String>();
 
-	/**
-	 * @return the text
-	 */
+	public Message(String text) {
+		System.out.println(text);
+		setText(text);
+	}
+
 	public String getText() {
 		return text;
 	}
 
-	/**
-	 * @param text
-	 *            the text to set
-	 */
 	public void setText(String text) {
 		// this line will get the first 140 characters of the string
-		this.text = text != null ? text.substring(0, 139) : null;
-		//here is also where we set the hashtags and mentions
+		this.text = text != null ? text.substring(0, Math.min(text.length(), 139)) : null;
+		// here is also where we set the hashtags and mentions
 	}
 
-	/**
-	 * @return the date
-	 */
 	public Date getDate() {
 		return date;
 	}
 
-	/**
-	 * @return the hashtags
-	 */
 	public Set<String> getHashtags() {
 		return hashtags;
 	}
 
-	/**
-	 * @return the mentions
-	 */
 	public Set<String> getMentions() {
 		return mentions;
 	}

@@ -3,6 +3,7 @@ package edu.umw.cpsc.twitterAlt.controller;
 import java.net.UnknownHostException;
 
 import com.google.gson.Gson;
+import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
@@ -45,7 +46,7 @@ public class MongoUtil {
 			Gson gson = new Gson();
 			String oAsJson = gson.toJson(o);
 			// convert JSON formatted string to a Mongo DBObject
-			dbObject = (DBObject) JSON.parse(oAsJson);
+			dbObject = (BasicDBObject) JSON.parse(oAsJson);
 		} catch (Exception e) {
 			System.out
 					.println("error trying to convert object to Json then to Mongo DB Object");

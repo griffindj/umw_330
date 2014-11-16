@@ -19,8 +19,7 @@ public class RegisterPostRoute implements Route {
 			// we were able to register the user so create session
 			request.session(true);
 			// put the new user into the session
-			request.session().attribute("currentUser",
-					userDao.getUser(username));
+			request.session().attribute("user", userDao.getUser(username));
 			// send to homePage or postMessage page
 			response.redirect("/profile");
 			return "user has been saved to mongo";
