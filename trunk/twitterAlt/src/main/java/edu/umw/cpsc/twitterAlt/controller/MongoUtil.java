@@ -10,12 +10,22 @@ import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.util.JSON;
 
+/**
+ * This class is a utility class that translates objects to MongoDB and vice
+ * versa
+ * 
+ * @author davidgriffin
+ *
+ */
 public class MongoUtil {
 	private static MongoUtil instance;
 	private MongoClient mongoClient;
 	private DB db;
 	public static final String MONGO_SERVER_ADDRESS = "mongodb://localhost";
 
+	/**
+	 * private constructor that limits instantiation to one instance
+	 */
 	private MongoUtil() {
 		// private constructor that instantiates our Database and establishes a
 		// single connection for our application
@@ -39,6 +49,14 @@ public class MongoUtil {
 		return this.db;
 	}
 
+	/**
+	 * Converts an object to a Mongo specific DBObject (which is essentially a
+	 * json representation of the object)
+	 * 
+	 * @param o
+	 *            the object to be converted
+	 * @return the converted object o, as represented as a DBObject
+	 */
 	public static DBObject toDBObject(Object o) {
 		DBObject dbObject = null;
 		try {
@@ -55,6 +73,17 @@ public class MongoUtil {
 		return dbObject;
 	}
 
+	/**
+	 * This method populates an object from a DBObject. So if you have a user
+	 * object in MongoDB's DBObject format, then you can populate a new/or
+	 * existing User object from that.
+	 * 
+	 * @param dbo
+	 *            the MongoDB DBObject that contains the data from the database
+	 * @param o
+	 *            the Plain Old Java Object that you want to be populated
+	 * @return returns o after it has been populated with the values in dbo
+	 */
 	public static Object fromDBObject(DBObject dbo, Object o) {
 		try {
 			// first convert mongodb object to JSON string

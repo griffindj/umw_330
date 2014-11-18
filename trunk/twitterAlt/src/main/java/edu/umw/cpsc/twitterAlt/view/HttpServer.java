@@ -1,22 +1,23 @@
 package edu.umw.cpsc.twitterAlt.view;
 
-import static spark.Spark.*;
+import static spark.Spark.get;
+import static spark.Spark.post;
+import static spark.SparkBase.setPort;
+import static spark.SparkBase.staticFileLocation;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.StringWriter;
-import java.util.HashMap;
 
-import spark.Request;
-import spark.Response;
-import spark.Route;
 import spark.Spark;
-import edu.umw.cpsc.twitterAlt.controller.UserDao;
-import edu.umw.cpsc.twitterAlt.model.User;
-import edu.umw.cpsc.twitterAlt.view.routes.*;
+import edu.umw.cpsc.twitterAlt.view.routes.LoginGetRoute;
+import edu.umw.cpsc.twitterAlt.view.routes.LoginPostRoute;
+import edu.umw.cpsc.twitterAlt.view.routes.ProfileGetRoute;
+import edu.umw.cpsc.twitterAlt.view.routes.RegisterPostRoute;
+import edu.umw.cpsc.twitterAlt.view.routes.SearchPostRoute;
+import edu.umw.cpsc.twitterAlt.view.routes.SearchTagGetRoute;
+import edu.umw.cpsc.twitterAlt.view.routes.WelcomeGetRoute;
+import edu.umw.cpsc.twitterAlt.view.routes.WriteMessagePostRoute;
 import freemarker.template.Configuration;
-import freemarker.template.Template;
-import freemarker.template.TemplateException;
 import freemarker.template.TemplateExceptionHandler;
 
 public class HttpServer {
@@ -42,14 +43,32 @@ public class HttpServer {
 		cfg.setTemplateExceptionHandler(TemplateExceptionHandler.HTML_DEBUG_HANDLER);
 	}
 
+	/**
+	 * @return the single instance of this HttpServer class (allows access to a
+	 *         single instance of this class and prevents multiple
+	 *         instantiations) google the singleton design pattern
+	 */
 	public static HttpServer getInstance() {
 		return instance == null ? new HttpServer() : instance;
 	}
 
+	/**
+	 * @return the freemarker template/html configuration needed for processing
+	 *         templates
+	 */
 	public static Configuration getCfg() {
 		return cfg;
 	}
 
+	/**
+	 * This method "starts" the http server by initializing routes. Each route
+	 * starts with a method of either get (displaying a template) or
+	 * post(processing data from a template and then redirecting to a
+	 * display/get route). The routes are custom implementations of the
+	 * spark.Route interface and must implement the handle method which takes a
+	 * spark request and returns a spark response. See individual routes for
+	 * more details
+	 */
 	public static void start() {
 
 		// initialize the GET routes, aka routes that display html templates

@@ -1,14 +1,22 @@
 package edu.umw.cpsc.twitterAlt.view.routes;
 
-import java.util.List;
-
 import spark.Request;
 import spark.Response;
 import spark.Route;
 import edu.umw.cpsc.twitterAlt.controller.MessageDao;
 import edu.umw.cpsc.twitterAlt.controller.UserDao;
-import edu.umw.cpsc.twitterAlt.model.Message;
 
+/**
+ * This route takes the submission of the Login form (displayed/handled in the
+ * LoginGetRoute). It will call the userDao.login method to attempt to login and
+ * if successful will create a session, and store the logged in user object in
+ * that session, as well as the logged in user's messageFeed (which is a list of
+ * messages that the user should see). Then when the session has be created, it
+ * redirects the user to the profile page
+ * 
+ * @author davidgriffin
+ *
+ */
 public class LoginPostRoute implements Route {
 
 	@Override

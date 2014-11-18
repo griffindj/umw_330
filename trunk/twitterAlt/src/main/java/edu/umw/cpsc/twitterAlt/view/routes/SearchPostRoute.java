@@ -5,6 +5,16 @@ import spark.Response;
 import spark.Route;
 import edu.umw.cpsc.twitterAlt.controller.MessageDao;
 
+/**
+ * This route handles the search form submission and will call the messageDao to
+ * get a list of matching messages and will update the session's messageFeed
+ * object with that list of matched messages. If the query is empty (user
+ * clicked search with nothing in the search box) then the messageFeed will be
+ * reset back to the user's "default" view of their subscriptions.
+ * 
+ * @author davidgriffin
+ *
+ */
 public class SearchPostRoute implements Route {
 
 	@Override

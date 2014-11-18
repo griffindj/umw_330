@@ -6,6 +6,15 @@ import spark.Route;
 import edu.umw.cpsc.twitterAlt.controller.UserDao;
 import edu.umw.cpsc.twitterAlt.model.User;
 
+/**
+ * This route accepts a username and password from the login/register form. It
+ * will call the userDao class to attempt to register the user and if successful
+ * will "login" that user by starting a new session and putting them in the
+ * session.  If unsuccessful it redirects back to the loginGetRoute
+ * 
+ * @author davidgriffin
+ *
+ */
 public class RegisterPostRoute implements Route {
 
 	@Override
