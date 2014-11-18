@@ -27,6 +27,11 @@ public class WriteMessagePostRoute implements Route {
 		if (messageDao.postMessage(username, text, isPublic)) {
 			// message was posted, so update the session and refresh
 			request.session().attribute("user", userDao.getUser(username));
+			request.session()
+					.attribute(
+							"messageFeed",
+							messageDao.getMessages(request.session().attribute(
+									"user")));
 			response.redirect("/profile");
 			// should never reach here
 			return "should never reach here";
