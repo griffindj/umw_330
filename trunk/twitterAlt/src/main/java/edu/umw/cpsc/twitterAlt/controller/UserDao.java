@@ -4,6 +4,7 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
+import com.mongodb.WriteConcern;
 
 import edu.umw.cpsc.twitterAlt.model.User;
 
@@ -88,7 +89,16 @@ public class UserDao {
 	 *         reasons like the user doesn't exist
 	 */
 	public boolean resetPassword(User user, String newPassword) {
-		return true;
+            System.out.println(user.getUsername());
+            System.out.println(newPassword);
+            
+            DBObject query = new BasicDBObject("username", user.getUsername());
+            
+            DBObject newPass = new BasicDBObject("asdf", newPassword);
+            
+            usersCollection.update(query, newPass);
+            
+            return true;
 	}
 
 	/**
