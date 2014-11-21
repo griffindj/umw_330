@@ -108,8 +108,14 @@ public class UserDao {
 	 * @param subscribee
 	 * @return
 	 */
-	public boolean subscribeToUser(User subscriber, User subscribee) {
-		return true;
+	public boolean subscribeToUser(String subscriber, String subscribee) {
+            DBObject query = new BasicDBObject("username", subscriber);
+            
+            
+            DBObject newSub = new BasicDBObject("$push", new BasicDBObject(
+                    "subscriptions", subscribee));
+            
+            return (usersCollection.update(query, newSub).getN() > 0);
 	}
 
 	/**

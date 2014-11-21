@@ -21,6 +21,7 @@ import edu.umw.cpsc.twitterAlt.view.routes.ResetPasswordGetRoute;
 import edu.umw.cpsc.twitterAlt.view.routes.ResetPasswordPostRoute;
 import edu.umw.cpsc.twitterAlt.view.routes.DeleteUserGetRoute;
 import edu.umw.cpsc.twitterAlt.view.routes.DeleteUserPostRoute;
+import edu.umw.cpsc.twitterAlt.view.routes.SubscribePostRoute;
 import freemarker.template.Configuration;
 import freemarker.template.TemplateExceptionHandler;
 
@@ -90,6 +91,7 @@ public class HttpServer {
 		post("/search", new SearchPostRoute());
                 post("/resetPassword", new ResetPasswordPostRoute());
                 post("/deleteUser", new DeleteUserPostRoute());
+                post("/subscribe", new SubscribePostRoute());
 
 	}
 

@@ -25,6 +25,34 @@
                                 <a href="/deleteUser">delete your account</a>
 			  </div>
 			</div>
+                        <div class="panel panel-success">
+			  <div class="panel-heading">
+			    <h3 class="panel-title">Your Subscriptions</h3>
+			  </div>
+			  <div class="panel-body">
+                                <form role="form" action="/subscribe" method="post">
+                                    <select name="subscribee" style="width:200px" class="form-control">
+                                        <option value="user@user.com">user@user.com</option>
+                                    </select>
+                                    <button type="submit" class="btn btn-primary">Subscribe</button>
+                                </form>
+			  </div>
+                          <div class="panel-body">
+                                <ul class="list-group">
+                                    <#list user.subscriptions as sub>
+                                        <#if sub??>
+                                            <li class="list-group-item">
+                                            
+                                                <div>
+                                                    ${sub}
+                                                    <div class="badge pull-right"><span class="glyphicon glyphicon-remove"></span></div>
+                                                </div>
+                                            </li>
+                                        </#if>
+                                    </#list>
+                                </ul>
+			  </div>
+			</div>
 			<div class="panel panel-default">
 			  	<div class="panel-body">
 					<form role="form" action="/postMessage" method="post">

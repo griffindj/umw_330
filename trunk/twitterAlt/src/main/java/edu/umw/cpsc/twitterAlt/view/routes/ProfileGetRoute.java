@@ -1,5 +1,6 @@
 package edu.umw.cpsc.twitterAlt.view.routes;
 
+import edu.umw.cpsc.twitterAlt.model.User;
 import java.io.IOException;
 
 import spark.Request;
@@ -26,6 +27,8 @@ public class ProfileGetRoute extends TwitterAltRoute {
 		getAttributes().put("user", request.session().attribute("user"));
 		getAttributes().put("messageFeed", request.session()
 				.attribute("messageFeed"));
+//                getAttributes().put("subscriptions", ((User) request.session()
+//                        .attribute("user")).getSubscriptions());
 		try {
 			// get and process the template with the hashMap we created
 			setTemplate(HttpServer.getCfg().getTemplate("profile.ftl"));
