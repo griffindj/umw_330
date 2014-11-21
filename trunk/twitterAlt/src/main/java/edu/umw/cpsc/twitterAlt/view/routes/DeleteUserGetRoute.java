@@ -1,6 +1,7 @@
 package edu.umw.cpsc.twitterAlt.view.routes;
 
 import java.io.IOException;
+import java.io.StringWriter;
 
 import spark.Request;
 import spark.Response;
@@ -19,6 +20,7 @@ public class DeleteUserGetRoute extends TwitterAltRoute {
 
 	@Override
 	public Object handle(Request request, Response response) {
+		StringWriter html = new StringWriter();
 		// put the session User into the Hashmap so the template can use
 		getAttributes().put("user", request.session().attribute("user"));
 
@@ -27,12 +29,12 @@ public class DeleteUserGetRoute extends TwitterAltRoute {
 			setTemplate(HttpServer.getCfg().getTemplate("deleteUser.ftl"));
 			// Process any objects that we reference in our deleteUser.ftl
 			// (not used here so we just process an empty HashMap)
-			getTemplate().process(getAttributes(), getHtml());
+			getTemplate().process(getAttributes(), html);
 		} catch (IOException | TemplateException e) {
 			System.out.println("Cannot find the Delete template!");
 		}
 		// return the written/process html to the browser which is displayed
-		return getHtml();
+		return html;
 	}
 
 }

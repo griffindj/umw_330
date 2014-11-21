@@ -42,10 +42,12 @@ public class LoginPostRoute implements Route {
 			response.redirect("/profile");
 		} else {
 			// the user doesn't exist so create a new LoginGetRoute, put the
-			// error message inside and call it's handle method
-			TwitterAltRoute loginGetRoute = new LoginGetRoute();
-			loginGetRoute.getAttributes().put("error", "user does not exist");
-			return loginGetRoute.handle(request, response);
+			// // error message inside and call it's handle method
+			// TwitterAltRoute loginGetRoute = new LoginGetRoute();
+			// loginGetRoute.getAttributes().put("error",
+			// "user does not exist");
+			// return loginGetRoute.handle(request, response);
+			response.redirect("/login");
 		}
 		return "Here is where would check the credentials";
 	}
