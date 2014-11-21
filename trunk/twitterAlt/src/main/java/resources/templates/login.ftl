@@ -3,7 +3,9 @@
 <div class="container">
 
 	<h2>Login / Register</h2>
-
+	<#if error??>
+		<p class="label label-danger">${error}</p>
+	</#if>
 	<div class="container">
 		<div class="col-md-6">
 		

@@ -8,6 +8,7 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 import edu.umw.cpsc.twitterAlt.view.HttpServer;
+import edu.umw.cpsc.twitterAlt.view.TwitterAltRoute;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
@@ -21,7 +22,8 @@ import freemarker.template.TemplateException;
  * @author davidgriffin
  *
  */
-public class LoginGetRoute implements Route {
+public class LoginGetRoute extends TwitterAltRoute{
+	
 	@Override
 	public Object handle(Request request, Response response) {
 		// Declare the html(simple string writer that we use to write our html)
@@ -33,7 +35,7 @@ public class LoginGetRoute implements Route {
 			template = HttpServer.getCfg().getTemplate("login.ftl");
 			// Process any objects that we reference in our login.ftl (not used
 			// here so we just process an empty HashMap)
-			template.process(new HashMap<>(), html);
+			template.process(getAttributes(), html);
 		} catch (IOException | TemplateException e) {
 			System.out.println("Cannot find the Signup template!");
 		}
