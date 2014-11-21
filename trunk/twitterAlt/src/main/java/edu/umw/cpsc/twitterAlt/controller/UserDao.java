@@ -115,13 +115,18 @@ public class UserDao {
 	/**
 	 * Deletes a user from the database
 	 * 
-	 * @param user
-	 *            the user to be deleted
+         * @param username
+         *         username of the user to be deleted
 	 * @return true if the user was deleted, false if for some reason their were
 	 *         not (like they didn't exist in the first place)
 	 */
-	public boolean deleteUser(User user) {
-		return true;
+	public boolean deleteUser(String username) {
+                DBObject query = new BasicDBObject("username", username);
+                
+                if (usersCollection.remove(query).getN() > 0)
+                    return true;
+                else 
+                    return false;
 	}
 
 }

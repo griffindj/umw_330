@@ -19,6 +19,8 @@ import edu.umw.cpsc.twitterAlt.view.routes.WelcomeGetRoute;
 import edu.umw.cpsc.twitterAlt.view.routes.WriteMessagePostRoute;
 import edu.umw.cpsc.twitterAlt.view.routes.ResetPasswordGetRoute;
 import edu.umw.cpsc.twitterAlt.view.routes.ResetPasswordPostRoute;
+import edu.umw.cpsc.twitterAlt.view.routes.DeleteUserGetRoute;
+import edu.umw.cpsc.twitterAlt.view.routes.DeleteUserPostRoute;
 import freemarker.template.Configuration;
 import freemarker.template.TemplateExceptionHandler;
 
@@ -79,6 +81,7 @@ public class HttpServer {
 		get("/profile", new ProfileGetRoute());
 		get("/searchTag", new SearchTagGetRoute());
                 get("/resetPassword", new ResetPasswordGetRoute());
+                get("/deleteUser", new DeleteUserGetRoute());
 
 		// initialize the POST routes, aka routes that receive form submissions
 		post("/register", new RegisterPostRoute());
@@ -86,6 +89,7 @@ public class HttpServer {
 		post("/postMessage", new WriteMessagePostRoute());
 		post("/search", new SearchPostRoute());
                 post("/resetPassword", new ResetPasswordPostRoute());
+                post("/deleteUser", new DeleteUserPostRoute());
 
 	}
 

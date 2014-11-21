@@ -21,6 +21,8 @@
 			  <div class="panel-body">
 			  	<p>${user.username}</p>
 			  	<a href="/resetPassword">reset your password</a>
+                                <br/>
+                                <a href="/deleteUser">delete your account</a>
 			  </div>
 			</div>
 			<div class="panel panel-default">
