@@ -1,12 +1,10 @@
 package edu.umw.cpsc.twitterAlt.view.routes;
 
-import edu.umw.cpsc.twitterAlt.controller.UserDao;
-import edu.umw.cpsc.twitterAlt.model.User;
-import java.io.StringWriter;
-
 import spark.Request;
 import spark.Response;
 import spark.Route;
+import edu.umw.cpsc.twitterAlt.controller.UserDao;
+import edu.umw.cpsc.twitterAlt.model.User;
 
 /**
  * This route deletes the user if the user confirms the deletion.
