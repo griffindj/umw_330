@@ -1,6 +1,7 @@
 package edu.umw.cpsc.twitterAlt.view.routes;
 
 import java.io.IOException;
+import java.io.StringWriter;
 
 import spark.Request;
 import spark.Response;
@@ -22,17 +23,18 @@ import freemarker.template.TemplateException;
 public class ProfileGetRoute extends TwitterAltRoute {
 
 	public Object handle(Request request, Response response) {
+		StringWriter html = new StringWriter();
 		// put the session User into the Hashmap so the template can use
 		getAttributes().put("user", request.session().attribute("user"));
-		getAttributes().put("messageFeed", request.session()
-				.attribute("messageFeed"));
+		getAttributes().put("messageFeed",
+				request.session().attribute("messageFeed"));
 		try {
 			// get and process the template with the hashMap we created
 			setTemplate(HttpServer.getCfg().getTemplate("profile.ftl"));
-			getTemplate().process(getAttributes(), getHtml());
+			getTemplate().process(getAttributes(), html);
 		} catch (IOException | TemplateException e) {
 			System.out.println("Cannot process the profile template!");
 		}
-		return getHtml();
+		return html;
 	}
 }
