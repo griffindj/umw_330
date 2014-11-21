@@ -1,5 +1,6 @@
 package edu.umw.cpsc.twitterAlt.view.routes;
 
+import edu.umw.cpsc.twitterAlt.controller.UserDao;
 import edu.umw.cpsc.twitterAlt.model.User;
 import java.io.IOException;
 import java.io.StringWriter;
@@ -25,12 +26,13 @@ public class ProfileGetRoute extends TwitterAltRoute {
 
 	public Object handle(Request request, Response response) {
 		StringWriter html = new StringWriter();
+                UserDao userDao = new UserDao();
+                User currentUser = (User) request.session().attribute("user");
 		// put the session User into the Hashmap so the template can use
-		getAttributes().put("user", request.session().attribute("user"));
+		getAttributes().put("user", currentUser);
 		getAttributes().put("messageFeed",
 				request.session().attribute("messageFeed"));
-//                getAttributes().put("subscriptions", ((User) request.session()
-//                        .attribute("user")).getSubscriptions());
+                getAttributes().put("availableUsers", userDao.getPossibleSubscriptions(currentUser.getUsername()));
 		try {
 			// get and process the template with the hashMap we created
 			setTemplate(HttpServer.getCfg().getTemplate("profile.ftl"));

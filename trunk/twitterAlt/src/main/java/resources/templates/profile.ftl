@@ -33,6 +33,9 @@
                                 <form role="form" action="/subscribe" method="post">
                                     <select name="subscribee" style="width:200px" class="form-control">
                                         <option value="user@user.com">user@user.com</option>
+                                        <#list availableUsers as subscription>
+                                            <option value="${subscription}">${subscription}</option>
+                                        </#list>
                                     </select>
                                     <button type="submit" class="btn btn-primary">Subscribe</button>
                                 </form>

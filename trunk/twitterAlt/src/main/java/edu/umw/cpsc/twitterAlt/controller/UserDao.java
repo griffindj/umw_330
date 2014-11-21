@@ -3,10 +3,14 @@ package edu.umw.cpsc.twitterAlt.controller;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.WriteConcern;
+import edu.umw.cpsc.twitterAlt.model.Message;
 
 import edu.umw.cpsc.twitterAlt.model.User;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class performs operations and logic that has to deal with users. It
@@ -134,5 +138,37 @@ public class UserDao {
                 else 
                     return false;
 	}
+        
+        /**
+         * 
+         * @return 
+         */
+        public List<String> getAllUsernames()
+        {
+            List<String> usernames = new ArrayList<String>();
+            DBCursor users = usersCollection.find();
+		while (users.hasNext()) {
+			User user = (User) MongoUtil.fromDBObject(
+					users.next(), new User());
+                        usernames.add(user.getUsername());
+		}
+            return usernames;
+        }
+        
+        /**
+         * 
+         * @param username
+         * @return 
+         */
+        public List<String> getPossibleSubscriptions(String username) {
+            List<String> availableUsers = getAllUsernames();
+            
+            User currentUser = getUser(username);
+            
+            availableUsers.removeAll(currentUser.getSubscriptions());
+            availableUsers.remove(username);
+            
+            return availableUsers;
+        }
 
 }
