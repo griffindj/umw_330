@@ -89,16 +89,16 @@ public class UserDao {
 	 *         reasons like the user doesn't exist
 	 */
 	public boolean resetPassword(User user, String newPassword) {
-            System.out.println(user.getUsername());
-            System.out.println(newPassword);
-            
-            DBObject query = new BasicDBObject("username", user.getUsername());
-            
-            DBObject newPass = new BasicDBObject("asdf", newPassword);
-            
-            usersCollection.update(query, newPass);
-            
-            return true;
+
+		DBObject query = new BasicDBObject("username", user.getUsername());
+		DBObject newPass = new BasicDBObject("$set", new BasicDBObject(
+				"password", newPassword));
+
+		if (usersCollection.update(query, newPass).getN() > 0) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	/**
