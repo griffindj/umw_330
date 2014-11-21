@@ -29,8 +29,8 @@
 			  	<div class="panel-body">
 					<form role="form" action="/postMessage" method="post">
 				  		<div class="form-group">
-				    		<label for="text">Write a Message</label>
-				    		<textarea class="form-control" rows="3" id="text" name="text" placeholder="Write a message"></textarea>
+				    		<label for="text">Write a Message</label> <span id="text_limit_display" class="pull-right"></span>
+				    		<span id="text_limit_display"/><textarea class="form-control" rows="3" id="text" name="text" placeholder="Write a message"></textarea>
 				  		</div>
 						<div class="checkbox">
 							<label>
@@ -106,5 +106,15 @@
 	</div>
 
 </div>
+
+<script type="text/javascript">
+$('#text').keyup(function () {
+    var left = 140 - $(this).val().length;
+    if (left < 0) {
+        left = 0;
+    }
+    $('#text_limit_display').text('Characters left: ' + left);
+});
+</script>
 
 <#include "footer.ftl">

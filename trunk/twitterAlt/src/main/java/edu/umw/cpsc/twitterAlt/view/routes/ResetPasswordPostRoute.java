@@ -29,8 +29,7 @@ public class ResetPasswordPostRoute implements Route {
 
 		if (oldPassword.equals(confirmPassword)
 				&& currentUser.getPassword().equals(oldPassword)) {
-			if (userDao.resetPassword(request.session().attribute("user"),
-					newPassword)) {
+			if (userDao.resetPassword(currentUser, newPassword)) {
 				response.redirect("/profile");
 				// this return statement wont be reached because of redirect
 				return "password has been reset";
@@ -38,7 +37,6 @@ public class ResetPasswordPostRoute implements Route {
 				return "password not reset, something bad happened in DAO";
 			}
 		} else {
-			// response.redirect("/profile");
 			response.redirect("/resetPassword");
 			return "passwords do not match";
 		}
