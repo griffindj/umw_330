@@ -14,7 +14,8 @@ import edu.umw.cpsc.twitterAlt.model.User;
  * session. If unsuccessful it redirects back to the loginGetRoute
  * 
  * @author davidgriffin
- *
+ * @author zachpayne
+ * @author evenmay
  */
 public class RegisterPostRoute implements Route {
 

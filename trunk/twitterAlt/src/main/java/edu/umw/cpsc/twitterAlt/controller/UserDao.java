@@ -17,7 +17,8 @@ import java.util.List;
  * connects the View (routes) to the Model (database)
  * 
  * @author davidgriffin
- *
+ * @author zachpayne
+ * @author evenmay
  */
 public class UserDao {
 	private final DB db = MongoUtil.getInstance().getDb();

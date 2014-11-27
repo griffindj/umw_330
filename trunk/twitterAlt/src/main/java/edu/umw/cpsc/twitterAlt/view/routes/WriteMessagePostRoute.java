@@ -13,7 +13,8 @@ import spark.Route;
  * user's list of messages and calls userDao to update the database
  * 
  * @author davidgriffin
- *
+ * @author zachpayne
+ * @author evenmay
  */
 public class WriteMessagePostRoute implements Route {
 

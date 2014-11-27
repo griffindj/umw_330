@@ -14,7 +14,7 @@ import freemarker.template.TemplateException;
  * of their account.
  * 
  * @author evanmay
- *
+ * @author zachpayne
  */
 public class DeleteUserGetRoute extends TwitterAltRoute {
 
@@ -27,7 +27,7 @@ public class DeleteUserGetRoute extends TwitterAltRoute {
 		try {
 			// Get the html that we wrote in resetPassword.ftl
 			setTemplate(HttpServer.getCfg().getTemplate("deleteUser.ftl"));
-			// Process any objects that we reference in our deleteUser.ftl
+			// Process any objects that we reference in our deleteUser.ft
 			// (not used here so we just process an empty HashMap)
 			getTemplate().process(getAttributes(), html);
 		} catch (IOException | TemplateException e) {

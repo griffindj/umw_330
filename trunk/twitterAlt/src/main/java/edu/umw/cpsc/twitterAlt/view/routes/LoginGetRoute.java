@@ -17,7 +17,8 @@ import freemarker.template.TemplateException;
  * login page)
  * 
  * @author davidgriffin
- *
+ * @author zachpayne
+ * @author evenmay
  */
 public class LoginGetRoute extends TwitterAltRoute {
 

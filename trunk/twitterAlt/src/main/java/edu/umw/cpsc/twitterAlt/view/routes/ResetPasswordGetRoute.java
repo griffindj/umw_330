@@ -15,7 +15,7 @@ import freemarker.template.TemplateException;
  * old password, and a confirmation of the old password.
  * 
  * @author evanmay
- *
+ * @author zachpayne
  */
 public class ResetPasswordGetRoute extends TwitterAltRoute {
 

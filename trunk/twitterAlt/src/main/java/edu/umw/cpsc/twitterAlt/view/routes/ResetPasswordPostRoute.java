@@ -11,7 +11,7 @@ import edu.umw.cpsc.twitterAlt.model.User;
  * ResetPasswordGetRoute.
  * 
  * @author evanmay
- *
+ * @author zachpayne
  */
 public class ResetPasswordPostRoute implements Route {
 

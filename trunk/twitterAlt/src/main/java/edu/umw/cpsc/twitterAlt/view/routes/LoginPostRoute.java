@@ -16,7 +16,7 @@ import edu.umw.cpsc.twitterAlt.view.TwitterAltRoute;
  * redirects the user to the profile page
  * 
  * @author davidgriffin
- *
+ * @author zachpayne
  */
 public class LoginPostRoute implements Route {
 

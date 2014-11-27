@@ -18,7 +18,8 @@ import edu.umw.cpsc.twitterAlt.model.User;
  * deal with Messages
  * 
  * @author davidgriffin
- *
+ * @author zachpayne
+ * @author evenmay
  */
 public class MessageDao {
 	private final DB db = MongoUtil.getInstance().getDb();
@@ -60,7 +61,7 @@ public class MessageDao {
 	 * @param msg
 	 * @return
 	 */
-	public boolean deleteMessage(Message msg) {
+	public boolean deleteMessage(Message msg,User user) {
 		return true;
 	}
 
@@ -101,10 +102,18 @@ public class MessageDao {
 	 * only cares if a message is public or private. If it's public then add it
 	 * to the list of messages to return
 	 * 
-	 * @return
+	 * @return messages
 	 */
 	public List<Message> getAllMessages() {
-		return null;
+		List<Message> messages = new ArrayList<Message>();
+			for (Message message) {
+				if (message.isPublic()) {
+					messages.add(message);
+				}else{
+					
+				}
+			}
+		return messages;
 	}
 
 	/**

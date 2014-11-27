@@ -10,7 +10,7 @@ import edu.umw.cpsc.twitterAlt.model.User;
  * This route deletes the user if the user confirms the deletion.
  * 
  * @author evanmay
- *
+ * @author zachpayne
  */
 public class DeleteUserPostRoute implements Route {
 
