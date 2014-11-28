@@ -82,13 +82,14 @@ public class MessageDao {
 		// append("$or", new BasicDBObject("username", user.getUsername()));
 		System.out.println(query);
 		DBCursor subscriptions = usersCollection.find(query);
+		System.out.println(subscriptions.size());
 		while (subscriptions.hasNext()) {
 			User followedUser = (User) MongoUtil.fromDBObject(
 					subscriptions.next(), new User());
 			System.out.println(followedUser.getUsername());
 			for (Message message : followedUser.getMessages()) {
 				System.out.println(followedUser.getUsername());
-				if (user.equals(followedUser) || message.isPublic()) {
+				if ((user.equals(followedUser) && (message.isPublic() == false )) || message.isPublic()) {
 					messages.add(message);
 				}
 			}
@@ -105,15 +106,7 @@ public class MessageDao {
 	 * @return messages
 	 */
 	public List<Message> getAllMessages() {
-		List<Message> messages = new ArrayList<Message>();
-			for (Message message) {
-				if (message.isPublic()) {
-					messages.add(message);
-				}else{
-					
-				}
-			}
-		return messages;
+           return null;
 	}
 
 	/**
