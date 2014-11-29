@@ -14,48 +14,9 @@
 
 	<div class="container">
 		<div class="col-md-5">
-			<div class="panel panel-danger">
-			  <div class="panel-heading">
-			    <h3 class="panel-title">Your TwitterAlt Profile</h3>
-			  </div>
-			  <div class="panel-body">
-			  	<p>${user.username}</p>
-			  	<a href="/resetPassword">reset your password</a>
-                                <br/>
-                                <a href="/deleteUser">delete your account</a>
-			  </div>
-			</div>
-                        <div class="panel panel-success">
-			  <div class="panel-heading">
-			    <h3 class="panel-title">Your Subscriptions</h3>
-			  </div>
-			  <div class="panel-body">
-                                <form role="form" action="/subscribe" method="post">
-                                    <select name="subscribee" style="width:200px" class="form-control">
-                                        <option value="user@user.com">user@user.com</option>
-                                        <#list availableUsers as subscription>
-                                            <option value="${subscription}">${subscription}</option>
-                                        </#list>
-                                    </select>
-                                    <button type="submit" class="btn btn-primary">Subscribe</button>
-                                </form>
-			  </div>
-                          <div class="panel-body">
-                                <ul class="list-group">
-                                    <#list user.subscriptions as sub>
-                                        <#if sub??>
-                                            <li class="list-group-item">
-                                            
-                                                <div>
-                                                    ${sub}
-                                                    <div class="badge pull-right"><span class="glyphicon glyphicon-remove"></span></div>
-                                                </div>
-                                            </li>
-                                        </#if>
-                                    </#list>
-                                </ul>
-			  </div>
-			</div>
+		
+			
+			<!--- Form to write and list to display messages the logged in user writes --->
 			<div class="panel panel-default">
 			  	<div class="panel-body">
 					<form role="form" action="/postMessage" method="post">
@@ -106,7 +67,52 @@
 					</ul>
 			  	</div>
 			</div>
+			
+			<!--- Cancel Account/Password Reset --->
+			<div class="panel panel-danger">
+			  <div class="panel-heading">
+			    <h3 class="panel-title">Your TwitterAlt Profile</h3>
+			  </div>
+			  <div class="panel-body">
+			  	<p>${user.username}</p>
+			  	<a href="/resetPassword">reset your password</a>
+                <br/>
+                <a href="/deleteUser">delete your account</a>
+			  </div>
+			</div>
+            <div class="panel panel-success">
+			  <div class="panel-heading">
+			    <h3 class="panel-title">Your Subscriptions</h3>
+			  </div>
+			  <div class="panel-body">
+                <form role="form" action="/subscribe" method="post">
+                    <select name="subscribee" style="width:200px" class="form-control">
+                        <option value="Select a User to Follow">user@user.com</option>
+                        <#list availableUsers as subscription>
+                            <option value="${subscription}">${subscription}</option>
+                        </#list>
+                    </select>
+                    <button type="submit" class="btn btn-primary">Subscribe</button>
+                </form>
+			  </div>
+              <div class="panel-body">
+                <ul class="list-group">
+                    <#list user.subscriptions as sub>
+                        <#if sub??>
+                            <li class="list-group-item">
+                            	<div>
+                                    ${sub}
+                                    <div class="badge pull-right"><span class="glyphicon glyphicon-remove"></span></div>
+                                </div>
+                            </li>
+                        </#if>
+                    </#list>
+                </ul>
+			  </div>
+			</div>
 		</div>
+		
+		<!--- List of all messages from a user's subscriptions --->
 		<div class="col-md-7">
 			<div class="panel panel-info">
 			  <div class="panel-heading">

@@ -61,7 +61,7 @@ public class MessageDao {
 	 * @param msg
 	 * @return
 	 */
-	public boolean deleteMessage(Message msg,User user) {
+	public boolean deleteMessage(Message msg, User user) {
 		return true;
 	}
 
@@ -86,12 +86,8 @@ public class MessageDao {
 		while (subscriptions.hasNext()) {
 			User followedUser = (User) MongoUtil.fromDBObject(
 					subscriptions.next(), new User());
-			System.out.println(followedUser.getUsername());
 			for (Message message : followedUser.getMessages()) {
-				System.out.println(followedUser.getUsername());
-				if ((user.equals(followedUser) && (message.isPublic() == false )) || message.isPublic()) {
-					messages.add(message);
-				}
+				messages.add(message);
 			}
 		}
 		return messages;
@@ -105,8 +101,8 @@ public class MessageDao {
 	 * 
 	 * @return messages
 	 */
-	public List<Message> getAllMessages() {
-           return null;
+	public List<Message> getMessages() {
+		return null;
 	}
 
 	/**
