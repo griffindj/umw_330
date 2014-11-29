@@ -15,7 +15,6 @@
 	<div class="container">
 		<div class="col-md-5">
 		
-			
 			<!--- Form to write and list to display messages the logged in user writes --->
 			<div class="panel panel-default">
 			  	<div class="panel-body">
@@ -85,9 +84,9 @@
 			    <h3 class="panel-title">Your Subscriptions</h3>
 			  </div>
 			  <div class="panel-body">
-                <form role="form" action="/subscribe" method="post">
-                    <select name="subscribee" style="width:200px" class="form-control">
-                        <option value="Select a User to Follow">user@user.com</option>
+                <form  class="form-inline" role="form" action="/subscribe" method="post">
+                    <select name="subscribee" class="form-control">
+                        <option value="">Subscribe to a User</option>
                         <#list availableUsers as subscription>
                             <option value="${subscription}">${subscription}</option>
                         </#list>

@@ -1,16 +1,15 @@
 package edu.umw.cpsc.twitterAlt.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
-import com.mongodb.WriteConcern;
-import edu.umw.cpsc.twitterAlt.model.Message;
 
 import edu.umw.cpsc.twitterAlt.model.User;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * This class performs operations and logic that has to deal with users. It

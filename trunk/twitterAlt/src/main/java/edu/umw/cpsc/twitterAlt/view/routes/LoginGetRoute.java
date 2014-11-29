@@ -6,7 +6,6 @@ import java.io.StringWriter;
 import spark.Request;
 import spark.Response;
 import edu.umw.cpsc.twitterAlt.controller.MessageDao;
-import edu.umw.cpsc.twitterAlt.model.Message;
 import edu.umw.cpsc.twitterAlt.view.HttpServer;
 import edu.umw.cpsc.twitterAlt.view.TwitterAltRoute;
 import freemarker.template.TemplateException;

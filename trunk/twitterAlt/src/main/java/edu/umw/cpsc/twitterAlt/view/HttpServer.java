@@ -9,19 +9,18 @@ import java.io.File;
 import java.io.IOException;
 
 import spark.Spark;
+import edu.umw.cpsc.twitterAlt.view.routes.DeleteUserGetRoute;
+import edu.umw.cpsc.twitterAlt.view.routes.DeleteUserPostRoute;
 import edu.umw.cpsc.twitterAlt.view.routes.LoginGetRoute;
 import edu.umw.cpsc.twitterAlt.view.routes.LoginPostRoute;
 import edu.umw.cpsc.twitterAlt.view.routes.ProfileGetRoute;
 import edu.umw.cpsc.twitterAlt.view.routes.RegisterPostRoute;
-import edu.umw.cpsc.twitterAlt.view.routes.SearchPostRoute;
-import edu.umw.cpsc.twitterAlt.view.routes.SearchTagGetRoute;
-import edu.umw.cpsc.twitterAlt.view.routes.WelcomeGetRoute;
-import edu.umw.cpsc.twitterAlt.view.routes.WriteMessagePostRoute;
 import edu.umw.cpsc.twitterAlt.view.routes.ResetPasswordGetRoute;
 import edu.umw.cpsc.twitterAlt.view.routes.ResetPasswordPostRoute;
-import edu.umw.cpsc.twitterAlt.view.routes.DeleteUserGetRoute;
-import edu.umw.cpsc.twitterAlt.view.routes.DeleteUserPostRoute;
+import edu.umw.cpsc.twitterAlt.view.routes.SearchPostRoute;
 import edu.umw.cpsc.twitterAlt.view.routes.SubscribePostRoute;
+import edu.umw.cpsc.twitterAlt.view.routes.WelcomeGetRoute;
+import edu.umw.cpsc.twitterAlt.view.routes.WriteMessagePostRoute;
 import freemarker.template.Configuration;
 import freemarker.template.TemplateExceptionHandler;
 
@@ -80,18 +79,17 @@ public class HttpServer {
 		get("/", new WelcomeGetRoute());
 		get("/login", new LoginGetRoute());
 		get("/profile", new ProfileGetRoute());
-		get("/searchTag", new SearchTagGetRoute());
-                get("/resetPassword", new ResetPasswordGetRoute());
-                get("/deleteUser", new DeleteUserGetRoute());
+        get("/resetPassword", new ResetPasswordGetRoute());
+        get("/deleteUser", new DeleteUserGetRoute());
 
 		// initialize the POST routes, aka routes that receive form submissions
 		post("/register", new RegisterPostRoute());
 		post("/login", new LoginPostRoute());
 		post("/postMessage", new WriteMessagePostRoute());
 		post("/search", new SearchPostRoute());
-                post("/resetPassword", new ResetPasswordPostRoute());
-                post("/deleteUser", new DeleteUserPostRoute());
-                post("/subscribe", new SubscribePostRoute());
+        post("/resetPassword", new ResetPasswordPostRoute());
+        post("/deleteUser", new DeleteUserPostRoute());
+        post("/subscribe", new SubscribePostRoute());
 
 	}
 

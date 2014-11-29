@@ -5,7 +5,6 @@ import spark.Response;
 import spark.Route;
 import edu.umw.cpsc.twitterAlt.controller.MessageDao;
 import edu.umw.cpsc.twitterAlt.controller.UserDao;
-import edu.umw.cpsc.twitterAlt.view.TwitterAltRoute;
 
 /**
  * This route takes the submission of the Login form (displayed/handled in the
