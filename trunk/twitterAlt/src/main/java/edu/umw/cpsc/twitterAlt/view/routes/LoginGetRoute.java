@@ -5,6 +5,8 @@ import java.io.StringWriter;
 
 import spark.Request;
 import spark.Response;
+import edu.umw.cpsc.twitterAlt.controller.MessageDao;
+import edu.umw.cpsc.twitterAlt.model.Message;
 import edu.umw.cpsc.twitterAlt.view.HttpServer;
 import edu.umw.cpsc.twitterAlt.view.TwitterAltRoute;
 import freemarker.template.TemplateException;
@@ -25,14 +27,19 @@ public class LoginGetRoute extends TwitterAltRoute {
 	@Override
 	public Object handle(Request request, Response response) {
 		StringWriter html = new StringWriter();
+		MessageDao messageDao = new MessageDao();
 		try {
 			// Get the html that we wrote in login.ftl
 			setTemplate(HttpServer.getCfg().getTemplate("login.ftl"));
-			// Process any objects that we reference in our login.ftl (not used
-			// here so we just process an empty HashMap)
+
+			// put our list of public messages in the Attributes to process
+			getAttributes().put("publicMessageFeed", messageDao.getMessages());
+
+			// process the attributes we added
 			getTemplate().process(getAttributes(), html);
+			
 		} catch (IOException | TemplateException e) {
-			System.out.println("Cannot find the Signup template!");
+			System.out.println("Cannot find the Login template!");
 		}
 		// return the written/process html to the browser which is displayed
 		return html;

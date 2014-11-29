@@ -1,6 +1,7 @@
 package edu.umw.cpsc.twitterAlt.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -79,10 +80,9 @@ public class MessageDao {
 		user.getSubscriptions().add(user.getUsername());
 		BasicDBObject query = new BasicDBObject("username", new BasicDBObject(
 				"$in", user.getSubscriptions()));
-		// append("$or", new BasicDBObject("username", user.getUsername()));
-		System.out.println(query);
+
 		DBCursor subscriptions = usersCollection.find(query);
-		System.out.println(subscriptions.size());
+
 		while (subscriptions.hasNext()) {
 			User followedUser = (User) MongoUtil.fromDBObject(
 					subscriptions.next(), new User());
@@ -90,6 +90,9 @@ public class MessageDao {
 				messages.add(message);
 			}
 		}
+		// sort the messages by date
+		Collections.sort(messages);
+		// and return them
 		return messages;
 	}
 
@@ -102,7 +105,26 @@ public class MessageDao {
 	 * @return messages
 	 */
 	public List<Message> getMessages() {
-		return null;
+		// create an empty list of messages that we will pass back
+		List<Message> messages = new ArrayList<Message>();
+
+		// query the database for all users (so we can process their messages)
+		DBCursor allUsers = usersCollection.find();
+
+		// loop through all users
+		while (allUsers.hasNext()) {
+			User user = (User) MongoUtil.fromDBObject(allUsers.next(),
+					new User());
+			// for each message, if it's public, add it to the list
+			for (Message message : user.getMessages()) {
+				if (message.isPublic()) {
+					messages.add(message);
+				}
+			}
+		}
+		Collections.sort(messages);
+		// return our list of all Public Messages in the database
+		return messages;
 	}
 
 	/**

@@ -7,7 +7,7 @@
 		<p class="label label-danger">${error}</p>
 	</#if>
 	<div class="container">
-		<div class="col-md-6">
+		<div class="col-md-3">
 		
 			<form id="login-form" role="form" action="/login" method="post">
 			  <div class="form-group">
@@ -24,6 +24,36 @@
 			</form>
 			
 		</div>
+		
+		<!--- List of all Public messages (disregarding subscriptions) --->
+		<div class="col-md-9">
+			<div class="panel panel-info">
+			  <div class="panel-heading">
+			    <h3 class="panel-title">Public TwitterAlt Feed</h3>
+			  </div>
+				<div class="panel-body">
+					<ul class="list-group">
+				  		<#list publicMessageFeed as message>
+						    <li class="list-group-item">
+						    	<div>
+						    		${message.text}
+						    		<div class="label label-default pull-right">${message.date?datetime}</div>
+						    	</div>
+						    	<div>
+						    		<#list message.mentions as mention> 
+						    			<span class="label label-primary">${mention}</span>
+						    		</#list>
+						    		<#list message.hashtags as hashtag> 
+						    			<span class="label label-danger">${hashtag}</span>
+						    		</#list>
+						    	</div> 
+						    </li>
+						</#list>
+					</ul>
+				</div>
+			</div>
+		</div>
+		
 	</div>
 
 </div>

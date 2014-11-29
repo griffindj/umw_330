@@ -1,10 +1,11 @@
 package edu.umw.cpsc.twitterAlt.model;
 
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Message {
+public class Message implements Comparable<Message> {
 	private String text; // this is trimmed at 140 characters
 	private boolean isPublic;
 	private Date date = new Date();
@@ -25,9 +26,9 @@ public class Message {
 		this.text = text != null ? text.substring(0,
 				Math.min(text.length(), 139)) : null;
 		// here is also where we set the hashtags and mentions
-		//start by splitting the text into words by whitespace
+		// start by splitting the text into words by whitespace
 		String[] words = text.split("\\s+");
-		//for each word
+		// for each word
 		for (String word : words) {
 			// if starts with @, then add the name to our Set of mentions
 			if (word.startsWith("@")) {
@@ -58,6 +59,16 @@ public class Message {
 
 	public void setPublic(boolean isPublic) {
 		this.isPublic = isPublic;
+	}
+
+	@Override
+	public int compareTo(Message o) {
+		return Comparators.DATE.compare(this, o);
+	}
+
+	public static class Comparators {
+		public static final Comparator<Message> DATE = (Message o1, Message o2) -> o1.date
+				.compareTo(o2.date);
 	}
 
 }
