@@ -18,6 +18,15 @@
 	<script src="js/jquery-1.11.1.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	
+	<script src="js/jquery.confirm.min.js"></script>
+	<script>
+		$.confirm.options = {
+		    title: "Confirmation Required to Proceed",
+		    cancelButton: "Cancel",
+		    post: true
+		}
+	</script>
+	
   </head>
   <body>
   

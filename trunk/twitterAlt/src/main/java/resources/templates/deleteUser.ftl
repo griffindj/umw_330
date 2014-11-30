@@ -19,7 +19,7 @@
 </div>
 
 <script type="text/javascript">
-//this gets all inputs on our form, and resets the value to "reset" our form when cancel is clicked
+//this cancels the delete action and just sends the user back to the profile page
 $( "#cancelBtn" ).click(function() {
     window.location = "/profile";
 });

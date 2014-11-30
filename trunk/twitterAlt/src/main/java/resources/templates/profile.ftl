@@ -51,7 +51,9 @@
 						    <li class="list-group-item">
 						    	<div>
 						    		${message.text}
-						    		<div class="badge pull-right"><span class="glyphicon glyphicon-remove"></span></div>
+						    		<div href="unsubscribe?postedDate=${message.date?datetime}" class="deleteMessageButton badge pull-right">
+						    			<span class="glyphicon glyphicon-remove"></span>
+						    		</div>
 						    	</div>
 						    	<div>
 						    		<#list message.mentions as mention> 
@@ -101,7 +103,9 @@
                             <li class="list-group-item">
                             	<div>
                                     ${sub}
-                                    <div class="badge pull-right"><span class="glyphicon glyphicon-remove"></span></div>
+                                    <div href="unsubscribe?username=${sub}" class="unsubscribeButton badge pull-right">
+                                    	<span class="glyphicon glyphicon-remove"></span>
+                                    </div>
                                 </div>
                             </li>
                         </#if>
@@ -151,6 +155,17 @@ $('#text').keyup(function () {
     }
     $('#text_limit_display').text('Characters left: ' + left);
 });
+
+$(".unsubscribeButton").confirm({
+    text: "Are you sure you want to unsubscribe?",
+    confirmButton: "Unsubscribe"
+});
+
+$(".deleteMessageButton").confirm({
+    text: "Are you sure you want to delete this message?",
+    confirmButton: "Delete"
+});
+
 </script>
 
 <#include "footer.ftl">
