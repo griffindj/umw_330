@@ -11,6 +11,7 @@
 
     <!-- Bootstrap core CSS -->
 	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/jqcloud.css" rel="stylesheet">
 	<link href="css/twitterAlt.css" rel="stylesheet">
 	
     <!-- Bootstrap core JavaScript
@@ -19,6 +20,7 @@
 	<script src="js/bootstrap.min.js"></script>
 	
 	<script src="js/jquery.confirm.min.js"></script>
+	<script src="js/jqcloud-1.0.4.min.js"></script>
 	
   </head>
   <body>

@@ -5,7 +5,6 @@ import java.io.StringWriter;
 
 import spark.Request;
 import spark.Response;
-import edu.umw.cpsc.twitterAlt.controller.MessageDao;
 import edu.umw.cpsc.twitterAlt.controller.UserDao;
 import edu.umw.cpsc.twitterAlt.model.User;
 import edu.umw.cpsc.twitterAlt.view.HttpServer;
@@ -28,7 +27,6 @@ public class ProfileGetRoute extends TwitterAltRoute {
 	public Object handle(Request request, Response response) {
 		StringWriter html = new StringWriter();
 		UserDao userDao = new UserDao();
-		MessageDao messageDao = new MessageDao();
 		User currentUser = (User) request.session().attribute("user");
 		// put the session User into the Hashmap so the template can use
 		getAttributes().put("user", userDao.getUser(currentUser.getUsername()));
