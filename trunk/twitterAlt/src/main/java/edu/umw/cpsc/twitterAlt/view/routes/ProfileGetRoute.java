@@ -32,8 +32,8 @@ public class ProfileGetRoute extends TwitterAltRoute {
 		MessageDao messageDao = new MessageDao();
 		User currentUser = (User) request.session().attribute("user");
 		// put the session User into the Hashmap so the template can use
-		getAttributes().put("user", currentUser);
-		getAttributes().put("messageFeed",messageDao.getMessages(currentUser));
+		getAttributes().put("user", userDao.getUser(currentUser.getUsername()));
+		getAttributes().put("messageFeed", messageDao.getMessages(currentUser));
 		getAttributes().put("availableUsers",
 				userDao.getPossibleSubscriptions(currentUser.getUsername()));
 		try {

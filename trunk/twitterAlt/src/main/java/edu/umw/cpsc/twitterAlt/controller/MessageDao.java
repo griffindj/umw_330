@@ -37,7 +37,7 @@ public class MessageDao {
 	 */
 	public boolean postMessage(String username, String text, boolean isPublic) {
 		// create a new message based on our text
-		Message msg = new Message(text, isPublic);
+		Message msg = new Message(username, text, isPublic);
 		// using username, create a query to find user we're updating
 		DBObject query = new BasicDBObject("username", username);
 		// construct the new message to be pushed onto the Messages array

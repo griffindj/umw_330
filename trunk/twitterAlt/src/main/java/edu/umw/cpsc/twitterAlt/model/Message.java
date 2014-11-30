@@ -8,11 +8,13 @@ import java.util.Set;
 public class Message implements Comparable<Message> {
 	private String text; // this is trimmed at 140 characters
 	private boolean isPublic;
+	private String author;
 	private Date date = new Date();
 	private Set<String> hashtags = new HashSet<String>();
 	private Set<String> mentions = new HashSet<String>();
 
-	public Message(String text, boolean isPublic) {
+	public Message(String author, String text, boolean isPublic) {
+		setAuthor(author);
 		setText(text);
 		setPublic(isPublic);
 	}
@@ -59,6 +61,14 @@ public class Message implements Comparable<Message> {
 
 	public void setPublic(boolean isPublic) {
 		this.isPublic = isPublic;
+	}
+
+	public String getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
 	}
 
 	@Override

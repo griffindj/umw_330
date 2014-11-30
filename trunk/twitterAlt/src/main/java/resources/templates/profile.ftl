@@ -51,7 +51,8 @@
 						    <li class="list-group-item">
 						    	<div>
 						    		${message.text}
-						    		<div href="deleteMessage?postedDate=${message.date?datetime}" class="deleteMessageButton badge pull-right">
+						    		<div href="deleteMessage?postedDate=${message.date?datetime}" 
+						    				class="deleteMessageButton btn btn-xs badge pull-right">
 						    			<span class="glyphicon glyphicon-remove"></span>
 						    		</div>
 						    	</div>
@@ -72,18 +73,11 @@
 			<!--- Cancel Account/Password Reset --->
 			<div class="panel panel-danger">
 			  <div class="panel-heading">
-			    <h3 class="panel-title">Your TwitterAlt Profile</h3>
+			    <h3 class="panel-title">${user.username}'s TwitterAlt Profile</h3>
 			  </div>
 			  <div class="panel-body">
-			  	<p>${user.username}</p>
-			  	<a href="/resetPassword">reset your password</a>
-                <br/>
-                <a href="/deleteUser">delete your account</a>
-			  </div>
-			</div>
-            <div class="panel panel-success">
-			  <div class="panel-heading">
-			    <h3 class="panel-title">Your Subscriptions</h3>
+			  	<a class="btn btn-warning" href="/resetPassword">reset your password</a>
+                <a class="btn btn-danger" href="/deleteUser">delete your account</a>
 			  </div>
 			  <div class="panel-body">
                 <form  class="form-inline" role="form" action="/subscribe" method="post">
@@ -103,7 +97,8 @@
                             <li class="list-group-item">
                             	<div>
                                     ${sub}
-                                    <div href="deleteSubscription?username=${sub}" class="unsubscribeButton badge pull-right">
+                                    <div href="deleteSubscription?username=${sub}" 
+                                    		class="unsubscribeButton btn btn-xs badge pull-right">
                                     	<span class="glyphicon glyphicon-remove"></span>
                                     </div>
                                 </div>
@@ -127,7 +122,9 @@
 						    <li class="list-group-item">
 						    	<div>
 						    		${message.text}
-						    		<div class="label label-default pull-right">${message.date?datetime}</div>
+						    		<div class="label label-default pull-right">
+						    			${message.author} wrote at ${message.date?datetime}
+						    		</div>
 						    	</div>
 						    	<div>
 						    		<#list message.mentions as mention> 
@@ -159,12 +156,16 @@ $('#text').keyup(function () {
 $(".unsubscribeButton").confirm({
     text: "Are you sure you want to unsubscribe?",
     confirmButton: "Unsubscribe",
+    title: "Confirmation Required to Proceed",
+    cancelButton: "Cancel",
     post: true
 });
 
 $(".deleteMessageButton").confirm({
     text: "Are you sure you want to delete this message?",
     confirmButton: "Delete",
+    title: "Confirmation Required to Proceed",
+    cancelButton: "Cancel",
     post: true
 });
 
