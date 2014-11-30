@@ -1,14 +1,13 @@
 package edu.umw.cpsc.twitterAlt.view.routes;
 
-import edu.umw.cpsc.twitterAlt.controller.MessageDao;
-import edu.umw.cpsc.twitterAlt.controller.UserDao;
-import edu.umw.cpsc.twitterAlt.model.User;
-
 import java.io.IOException;
 import java.io.StringWriter;
 
 import spark.Request;
 import spark.Response;
+import edu.umw.cpsc.twitterAlt.controller.MessageDao;
+import edu.umw.cpsc.twitterAlt.controller.UserDao;
+import edu.umw.cpsc.twitterAlt.model.User;
 import edu.umw.cpsc.twitterAlt.view.HttpServer;
 import edu.umw.cpsc.twitterAlt.view.TwitterAltRoute;
 import freemarker.template.TemplateException;
@@ -33,7 +32,8 @@ public class ProfileGetRoute extends TwitterAltRoute {
 		User currentUser = (User) request.session().attribute("user");
 		// put the session User into the Hashmap so the template can use
 		getAttributes().put("user", userDao.getUser(currentUser.getUsername()));
-		getAttributes().put("messageFeed", messageDao.getMessages(currentUser));
+		getAttributes().put("messageFeed",
+				request.session().attribute("messageFeed"));
 		getAttributes().put("availableUsers",
 				userDao.getPossibleSubscriptions(currentUser.getUsername()));
 		try {

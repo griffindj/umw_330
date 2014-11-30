@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
@@ -148,8 +149,12 @@ public class MessageDao {
 	 */
 	public List<Message> searchMessages(String textQuery) {
 		List<Message> messages = new ArrayList<Message>();
-		DBObject query = new BasicDBObject("messages.text", textQuery);
+		Pattern pattern = Pattern.compile(".*" + textQuery + ".*");
+		DBObject query = new BasicDBObject("messages.text",
+				Pattern.compile(".*" + textQuery + ".*"));
 		DBCursor matchingMessages = usersCollection.find(query);
+		System.out.println(query);
+		System.out.println(matchingMessages.count());
 		while (matchingMessages.hasNext()) {
 			User user = (User) MongoUtil.fromDBObject(matchingMessages.next(),
 					new User());
@@ -159,6 +164,7 @@ public class MessageDao {
 				}
 			}
 		}
+		System.out.println(messages.size());
 		return messages;
 	}
 
