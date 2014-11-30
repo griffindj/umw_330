@@ -103,7 +103,7 @@
                             <li class="list-group-item">
                             	<div>
                                     ${sub}
-                                    <div href="unsubscribe?username=${sub}" class="unsubscribeButton badge pull-right">
+                                    <div href="deleteSubscription?username=${sub}" class="unsubscribeButton badge pull-right">
                                     	<span class="glyphicon glyphicon-remove"></span>
                                     </div>
                                 </div>

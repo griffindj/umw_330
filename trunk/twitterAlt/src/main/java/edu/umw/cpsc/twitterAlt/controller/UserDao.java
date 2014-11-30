@@ -122,6 +122,30 @@ public class UserDao {
 	}
 
 	/**
+	 * Takes a subscriber (the current logged in user) and removes the
+	 * subscribee from that user's list of subscriptions
+	 * 
+	 * @param unsubscriber
+	 * @param unsubscribee
+	 * @return
+	 */
+	public boolean unsubscribeToUser(String unsubscriber, String unsubscribee) {
+
+		// query to fine the document that matches the username
+		BasicDBObject query = new BasicDBObject("username", unsubscriber);
+		// update instructions telling the db to pull/remove the user from the
+		// subscriptions array
+		BasicDBObject updateInstructions = new BasicDBObject("$pull",
+				new BasicDBObject("subscriptions", unsubscribee));
+
+		if (usersCollection.update(query, updateInstructions).getN() > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	/**
 	 * Deletes a user from the database
 	 * 
 	 * @param username
