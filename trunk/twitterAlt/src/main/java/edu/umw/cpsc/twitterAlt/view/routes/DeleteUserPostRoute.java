@@ -17,13 +17,13 @@ public class DeleteUserPostRoute implements Route {
 	@Override
 	public Object handle(Request request, Response response) {
 		UserDao userDao = new UserDao();
-                
-                User currentUser = request.session().attribute("user");
-                
+
+		User currentUser = request.session().attribute("user");
+
 		if (userDao.deleteUser(currentUser.getUsername())) {
-                        response.redirect("/login");
-                        // this return statement wont be reached because of redirect
-                        return "account has been deleted";
+			response.redirect("/login");
+			// this return statement wont be reached because of redirect
+			return "account has been deleted";
 		} else {
 			// response.redirect("/profile");
 			return "account could not be deleted";

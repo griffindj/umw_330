@@ -113,62 +113,61 @@ public class UserDao {
 	 * @return
 	 */
 	public boolean subscribeToUser(String subscriber, String subscribee) {
-            DBObject query = new BasicDBObject("username", subscriber);
-            
-            
-            DBObject newSub = new BasicDBObject("$push", new BasicDBObject(
-                    "subscriptions", subscribee));
-            
-            return (usersCollection.update(query, newSub).getN() > 0);
+		DBObject query = new BasicDBObject("username", subscriber);
+
+		DBObject newSub = new BasicDBObject("$push", new BasicDBObject(
+				"subscriptions", subscribee));
+
+		return (usersCollection.update(query, newSub).getN() > 0);
 	}
 
 	/**
 	 * Deletes a user from the database
 	 * 
-         * @param username
-         *         username of the user to be deleted
+	 * @param username
+	 *            username of the user to be deleted
 	 * @return true if the user was deleted, false if for some reason their were
 	 *         not (like they didn't exist in the first place)
 	 */
 	public boolean deleteUser(String username) {
-                DBObject query = new BasicDBObject("username", username);
-                
-                if (usersCollection.remove(query).getN() > 0)
-                    return true;
-                else 
-                    return false;
+		DBObject query = new BasicDBObject("username", username);
+
+		if (usersCollection.remove(query).getN() > 0)
+			return true;
+		else
+			return false;
 	}
-        
-        /**
-         * 
-         * @return 
-         */
-        public List<String> getAllUsernames()
-        {
-            List<String> usernames = new ArrayList<String>();
-            DBCursor users = usersCollection.find();
+
+	/**
+	 * 
+	 * @return
+	 */
+	public List<String> getAllUsernames() {
+		List<String> usernames = new ArrayList<String>();
+		DBCursor users = usersCollection.find();
 		while (users.hasNext()) {
-			User user = (User) MongoUtil.fromDBObject(
-					users.next(), new User());
-                        usernames.add(user.getUsername());
+			User user = (User) MongoUtil.fromDBObject(users.next(), new User());
+			usernames.add(user.getUsername());
 		}
-            return usernames;
-        }
-        
-        /**
-         * 
-         * @param username
-         * @return 
-         */
-        public List<String> getPossibleSubscriptions(String username) {
-            List<String> availableUsers = getAllUsernames();
-            
-            User currentUser = getUser(username);
-            
-            availableUsers.removeAll(currentUser.getSubscriptions());
-            availableUsers.remove(username);
-            
-            return availableUsers;
-        }
+		return usernames;
+	}
+
+	/**
+	 * This method will get all possible users that the logged in user can
+	 * subscribe to
+	 * 
+	 * @param username
+	 * @return
+	 */
+	public List<String> getPossibleSubscriptions(String username) {
+		List<String> availableUsers = getAllUsernames();
+
+		User currentUser = getUser(username);
+
+		availableUsers.removeAll(currentUser.getSubscriptions());
+		availableUsers.remove(username);
+
+		return availableUsers;
+	}
 
 }
