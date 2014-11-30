@@ -25,7 +25,6 @@ public class DeleteUserPostRoute implements Route {
 			// this return statement wont be reached because of redirect
 			return "account has been deleted";
 		} else {
-			// response.redirect("/profile");
 			return "account could not be deleted";
 		}
 	}

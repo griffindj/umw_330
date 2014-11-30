@@ -51,7 +51,7 @@
 						    <li class="list-group-item">
 						    	<div>
 						    		${message.text}
-						    		<div href="unsubscribe?postedDate=${message.date?datetime}" class="deleteMessageButton badge pull-right">
+						    		<div href="deleteMessage?postedDate=${message.date?datetime}" class="deleteMessageButton badge pull-right">
 						    			<span class="glyphicon glyphicon-remove"></span>
 						    		</div>
 						    	</div>
@@ -158,12 +158,14 @@ $('#text').keyup(function () {
 
 $(".unsubscribeButton").confirm({
     text: "Are you sure you want to unsubscribe?",
-    confirmButton: "Unsubscribe"
+    confirmButton: "Unsubscribe",
+    post: true
 });
 
 $(".deleteMessageButton").confirm({
     text: "Are you sure you want to delete this message?",
-    confirmButton: "Delete"
+    confirmButton: "Delete",
+    post: true
 });
 
 </script>

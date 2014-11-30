@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 
 import spark.Spark;
+import edu.umw.cpsc.twitterAlt.view.routes.DeleteMessagePostRoute;
 import edu.umw.cpsc.twitterAlt.view.routes.DeleteUserGetRoute;
 import edu.umw.cpsc.twitterAlt.view.routes.DeleteUserPostRoute;
 import edu.umw.cpsc.twitterAlt.view.routes.LoginGetRoute;
@@ -88,8 +89,9 @@ public class HttpServer {
 		post("/postMessage", new WriteMessagePostRoute());
 		post("/search", new SearchPostRoute());
         post("/resetPassword", new ResetPasswordPostRoute());
-        post("/deleteUser", new DeleteUserPostRoute());
         post("/subscribe", new SubscribePostRoute());
+        post("/deleteUser", new DeleteUserPostRoute());
+        post("/deleteMessage", new DeleteMessagePostRoute());
 
 	}
 

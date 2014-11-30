@@ -53,17 +53,30 @@ public class MessageDao {
 	}
 
 	/**
-	 * This method will remove a message from a user's document in the database.
-	 * It should also take a user or username object so it knows which user to
-	 * update (although I suppose it could search the database based on the
-	 * timestamp to find the message since odds are low that any two messages
-	 * will have same millisecond timestamp)
+	 * This method takes a username and postedDate strings. THe username allows
+	 * us to find the user's mongodb document. The postedDate allows us to
+	 * remove all messages that were posted on that specific datetime(down to
+	 * the second)
 	 * 
 	 * @param msg
 	 * @return
 	 */
-	public boolean deleteMessage(Message msg, User user) {
-		return true;
+	public boolean deleteMessage(String username, String postedDate) {
+		// query to fine the document that matches the username
+		BasicDBObject query = new BasicDBObject("username", username);
+		// update instructions telling the db to pull/remove the message from
+		// the messages array that was posted on the "postedDate"
+		BasicDBObject updateInstructions = new BasicDBObject("$pull",
+				new BasicDBObject("messages", new BasicDBObject("date",
+						postedDate)));
+
+		System.out.println(updateInstructions);
+
+		if (usersCollection.update(query, updateInstructions).getN() > 0) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	/**
