@@ -11,7 +11,6 @@ import java.io.IOException;
 import spark.Spark;
 import edu.umw.cpsc.twitterAlt.view.routes.DeleteMessagePostRoute;
 import edu.umw.cpsc.twitterAlt.view.routes.DeleteSubscriptionPostRoute;
-import edu.umw.cpsc.twitterAlt.view.routes.DeleteUserGetRoute;
 import edu.umw.cpsc.twitterAlt.view.routes.DeleteUserPostRoute;
 import edu.umw.cpsc.twitterAlt.view.routes.LoginGetRoute;
 import edu.umw.cpsc.twitterAlt.view.routes.LoginPostRoute;
@@ -82,7 +81,6 @@ public class HttpServer {
 		get("/login", new LoginGetRoute());
 		get("/profile", new ProfileGetRoute());
         get("/resetPassword", new ResetPasswordGetRoute());
-        get("/deleteUser", new DeleteUserGetRoute());
 
 		// initialize the POST routes, aka routes that receive form submissions
 		post("/register", new RegisterPostRoute());

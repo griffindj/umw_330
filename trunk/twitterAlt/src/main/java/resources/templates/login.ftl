@@ -37,7 +37,9 @@
 						    <li class="list-group-item">
 						    	<div>
 						    		${message.text}
-						    		<div class="label label-default pull-right">${message.date?datetime}</div>
+						    		<div class="label label-default pull-right">
+						    			${message.author} wrote at ${message.date?datetime}
+						    		</div>
 						    	</div>
 						    	<div>
 						    		<#list message.mentions as mention> 

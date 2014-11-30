@@ -30,7 +30,6 @@
 						</div>
 				  		<div class="pull-right">
 					  		<button type="submit" class="btn btn-danger"><span class="glyphicon glyphicon-pencil"></span> Post Message</button>
-					  		<button type="button" class="btn" >Cancel</button>
 					  	</div>
 					</form>
 			  	</div>
@@ -76,10 +75,6 @@
 			    <h3 class="panel-title">${user.username}'s TwitterAlt Profile</h3>
 			  </div>
 			  <div class="panel-body">
-			  	<a class="btn btn-warning" href="/resetPassword">reset your password</a>
-                <a class="btn btn-danger" href="/deleteUser">delete your account</a>
-			  </div>
-			  <div class="panel-body">
                 <form  class="form-inline" role="form" action="/subscribe" method="post">
                     <select name="subscribee" class="form-control">
                         <option value="">Subscribe to a User</option>
@@ -106,6 +101,10 @@
                         </#if>
                     </#list>
                 </ul>
+			  </div>
+			  <div class="panel-body">
+			  	<a class="btn btn-default" href="/resetPassword">reset your password</a>
+                <a id="deleteAccount" class="btn btn-default" href="/deleteUser">delete your account</a>
 			  </div>
 			</div>
 		</div>
@@ -156,6 +155,14 @@ $('#text').keyup(function () {
 $(".unsubscribeButton").confirm({
     text: "Are you sure you want to unsubscribe?",
     confirmButton: "Unsubscribe",
+    title: "Confirmation Required to Proceed",
+    cancelButton: "Cancel",
+    post: true
+});
+
+$("#deleteAccount").confirm({
+    text: "Are you sure you want to delete your account?",
+    confirmButton: "Delete Account",
     title: "Confirmation Required to Proceed",
     cancelButton: "Cancel",
     post: true
