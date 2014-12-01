@@ -9,7 +9,7 @@
 					<h3>Login / Register</h3>
 				</div>
 				<div class="panel panel-body">
-					<form id="login-form" role="form" action="/login" method="post">
+					<form id="login-form" class="form" role="form" action="/login" method="post">
 					  <div class="form-group">
 					    <label for="email">Email</label>
 					    <input type="email" class="form-control" name="email" id="email" placeholder="Enter email">
@@ -18,19 +18,19 @@
 					    <label for="password">Password</label>
 					    <input type="password" class="form-control" name="password" id="password" placeholder="Password">
 					  </div>
+					<#if error??>
+						<p class="label label-danger">${error}</p>
+					</#if>
 					  <button id="loginBtn" type="submit" class="btn btn-primary">Login</button>
 					  <button id="registerBtn" type="submit" class="btn btn-danger">Register</button>
 					  <button id="cancelBtn" type="button" class="btn">Cancel</button>
 					</form>
-					<#if error??>
-						<p class="label label-danger">${error}</p>
-					</#if>
 				</div>
 			</div>
 			
 			<div class="panel panel-success">
 				<div class="panel panel-heading">
-					Word Cloud of public HashTags
+					What Hashtags Are Trending on TwitterAlt?
 				</div>
 				<div class="panel panel-body">
 					<div id="wordcloud" style="width: 300px; height: 300px; position: relative;"></div>
